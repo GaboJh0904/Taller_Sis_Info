@@ -1,0 +1,42 @@
+### Obtener el token de acceso
+POST http://localhost:8000/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=
+username=test_user
+password=secret_password
+
+### Crear un nuevo usuario
+POST http://localhost:8000/users/
+Content-Type: application/json
+
+{
+  "USER_NAME": "test_user2",
+  "EMAIL": "test_user@example.com",
+  "PASSWOR_HASH": "secret_password",
+  "EMPLEADO_ID": 1
+}
+
+### Obtener el listado de todos los usuarios
+GET http://localhost:8000/users/
+#Authorization: Bearer {{access_token}}
+
+### Obtener un usuario por ID
+GET http://localhost:8000/users/1
+#Authorization: Bearer {{access_token}}
+
+### Actualizar un usuario por ID
+PUT http://localhost:8000/users/4
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "USER_NAME": "updated_user",
+  "EMAIL": "updated_user@example.com",
+  "PASSWOR_HASH": "new_secret_password",
+  "EMPLEADO_ID": 1
+}
+
+### Eliminar un usuario por ID
+DELETE http://localhost:8000/users/3
+#Authorization: Bearer {{access_token}}
