@@ -1,0 +1,38 @@
+### Crear una nueva herramienta
+POST http://localhost:8000/tools/
+Content-Type: application/json
+
+{
+  "NOMBRE": "Taladro",
+  "DESCRIPCION": "Taladro de alto rendimiento",
+  "CANTIDAD": 10,
+  "PRECIO_UNITARIO": 100,
+  "PROVEEDOR_ID": 1,
+  "CANTIDAD_MINIMA": 3
+}
+
+### Obtener el listado de todas las herramientas
+GET http://localhost:8000/tools/
+#Authorization: Bearer {{access_token}}
+
+### Obtener una herramienta por ID
+GET http://localhost:8000/tools/1
+#Authorization: Bearer {{access_token}}
+
+### Actualizar una herramienta existente por ID
+PUT http://localhost:8000/tools/2
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "NOMBRE": "Taladro Actualizado",
+  "DESCRIPCION": "Taladro de alto rendimiento actualizado",
+  "CANTIDAD": 15,
+  "PRECIO_UNITARIO": 120,
+  "PROVEEDOR_ID": 1,
+  "CANTIDAD_MINIMA": 3
+}
+
+### Eliminar una herramienta por ID
+DELETE http://localhost:8000/tools/2
+#Authorization: Bearer {{access_token}}

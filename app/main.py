@@ -1,12 +1,13 @@
 # app/main.py
 from fastapi import FastAPI
-from app.api import auth, users, projects
+from app.api import auth, users, projects, tools
 
 app = FastAPI()
 
 app.include_router(auth.router)
 app.include_router(users.router, prefix="/users")
 app.include_router(projects.router, prefix="/projects")
+app.include_router(tools.router, prefix="/tools")
 
 if __name__ == "__main__":
     import uvicorn
