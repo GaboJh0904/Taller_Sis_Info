@@ -1,6 +1,6 @@
 # app/main.py
 from fastapi import FastAPI
-from app.api import auth, users, projects, tools, materials
+from app.api import auth, users, projects, tools, materials, flow_tools
 
 app = FastAPI()
 
@@ -9,6 +9,8 @@ app.include_router(users.router, prefix="/users")
 app.include_router(projects.router, prefix="/projects")
 app.include_router(tools.router, prefix="/tools")
 app.include_router(materials.router, prefix="/materials")
+app.include_router(flow_tools.router, prefix="/flow-tools")
+
 
 if __name__ == "__main__":
     import uvicorn

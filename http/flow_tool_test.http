@@ -1,0 +1,36 @@
+### Crear un nuevo flujo de herramienta
+POST http://localhost:8000/flow-tools/
+Content-Type: application/json
+
+{
+  "CANTIDAD": 20,
+  "MOVIMIENTO": "entrada",
+  "FECHA": "2024-01-01",
+  "ALMACEN_ID": 1,
+  "HERRAMIENTA_ID": 1
+}
+
+### Obtener el listado de todos los flujos de herramientas
+GET http://localhost:8000/flow-tools/
+#Authorization: Bearer {{access_token}}
+
+### Obtener un flujo de herramienta por ID
+GET http://localhost:8000/flow-tools/1
+#Authorization: Bearer {{access_token}}
+
+### Actualizar un flujo de herramienta existente por ID
+PUT http://localhost:8000/flow-tools/1
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "CANTIDAD": 25,
+  "MOVIMIENTO": "entrada",
+  "FECHA": "2024-01-02",
+  "ALMACEN_ID": 1,
+  "HERRAMIENTA_ID": 1
+}
+
+### Eliminar un flujo de herramienta por ID
+DELETE http://localhost:8000/flow-tools/3
+#Authorization: Bearer {{access_token}}
