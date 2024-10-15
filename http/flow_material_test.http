@@ -1,0 +1,36 @@
+### Crear un nuevo flujo de material
+POST http://localhost:8000/flow-materials/
+Content-Type: application/json
+
+{
+  "MATERIAL_ID": 1,
+  "ALMACEN_ID": 1,
+  "CANTIDAD": 100,
+  "MOVIMIENTO": "entrada",
+  "FECHA": "2024-01-01"
+}
+
+### Obtener el listado de todos los flujos de materiales
+GET http://localhost:8000/flow-materials/
+#Authorization: Bearer {{access_token}}
+
+### Obtener un flujo de material por ID
+GET http://localhost:8000/flow-materials/3
+#Authorization: Bearer {{access_token}}
+
+### Actualizar un flujo de material existente por ID
+PUT http://localhost:8000/flow-materials/3
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "MATERIAL_ID": 1,
+  "ALMACEN_ID": 1,
+  "CANTIDAD": 150,
+  "MOVIMIENTO": "salida",
+  "FECHA": "2024-02-01"
+}
+
+### Eliminar un flujo de material por ID
+DELETE http://localhost:8000/flow-materials/4
+#Authorization: Bearer {{access_token}}
