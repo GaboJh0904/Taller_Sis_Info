@@ -1,11 +1,23 @@
-### Crear un nuevo flujo de herramienta
+### Crear un nuevo flujo de herramienta (entrada)
+POST http://localhost:8000/flow-tools/
+Content-Type: application/json
+
+{
+  "CANTIDAD": 50,
+  "MOVIMIENTO": "entrada",
+  "FECHA": "2024-01-01",
+  "ALMACEN_ID": 1,
+  "HERRAMIENTA_ID": 1
+}
+
+### Crear un nuevo flujo de herramienta (salida)
 POST http://localhost:8000/flow-tools/
 Content-Type: application/json
 
 {
   "CANTIDAD": 20,
-  "MOVIMIENTO": "entrada",
-  "FECHA": "2024-01-01",
+  "MOVIMIENTO": "salida",
+  "FECHA": "2024-01-02",
   "ALMACEN_ID": 1,
   "HERRAMIENTA_ID": 1
 }

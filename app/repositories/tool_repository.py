@@ -15,6 +15,14 @@ def get_tool_by_id(tool_id: int) -> ToolOut | None:
     return None
 
 
+def update_tool_quantity(tool_id: int, new_quantity: int) -> None:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE HERRAMIENTA SET CANTIDAD = %s WHERE ID = %s", (new_quantity, tool_id))
+    conn.commit()
+    conn.close()
+
+
 def get_all_tools() -> list[ToolOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
