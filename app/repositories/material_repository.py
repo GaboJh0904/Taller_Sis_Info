@@ -15,6 +15,14 @@ def get_material_by_id(material_id: int) -> MaterialOut | None:
     return None
 
 
+def update_material_quantity(material_id: int, new_quantity: int) -> None:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE MATERIAL SET CANTIDAD = %s WHERE ID = %s", (new_quantity, material_id))
+    conn.commit()
+    conn.close()
+
+
 def get_all_materials() -> list[MaterialOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)

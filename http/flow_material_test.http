@@ -1,13 +1,25 @@
-### Crear un nuevo flujo de material
+### Crear un nuevo flujo de material (entrada)
 POST http://localhost:8000/flow-materials/
 Content-Type: application/json
 
 {
   "MATERIAL_ID": 1,
   "ALMACEN_ID": 1,
-  "CANTIDAD": 100,
+  "CANTIDAD": 50,
   "MOVIMIENTO": "entrada",
   "FECHA": "2024-01-01"
+}
+
+### Crear un nuevo flujo de material (salida)
+POST http://localhost:8000/flow-materials/
+Content-Type: application/json
+
+{
+  "MATERIAL_ID": 1,
+  "ALMACEN_ID": 1,
+  "CANTIDAD": 25,
+  "MOVIMIENTO": "salida",
+  "FECHA": "2024-01-02"
 }
 
 ### Obtener el listado de todos los flujos de materiales
