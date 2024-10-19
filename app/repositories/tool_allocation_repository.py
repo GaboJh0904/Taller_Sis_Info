@@ -1,7 +1,7 @@
 from app.db.connection import get_db_connection
-from app.schemas.tool_allocation_schema import AsignacionHerramientaOut, AsignacionHerramientaCreate
+from app.schemas.tool_allocation_schema import ToolAllocationOut, ToolAllocationCreate
 
-def get_tool_allocation_by_id(tool_allocation_id: int) -> AsignacionHerramientaOut | None:
+def get_tool_allocation_by_id(tool_allocation_id: int) -> ToolAllocationOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA WHERE ID = %s", (tool_allocation_id,))
@@ -9,19 +9,19 @@ def get_tool_allocation_by_id(tool_allocation_id: int) -> AsignacionHerramientaO
     conn.close()
 
     if tool_allocation:
-        return AsignacionHerramientaOut(**tool_allocation)
+        return ToolAllocationOut(**tool_allocation)
     return None
 
-def get_all_tool_allocations() -> list[AsignacionHerramientaOut]:
+def get_all_tool_allocations() -> list[ToolAllocationOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA")
     tool_allocations = cursor.fetchall()
     conn.close()
 
-    return [AsignacionHerramientaOut(**tool_allocation) for tool_allocation in tool_allocations]
+    return [ToolAllocationOut(**tool_allocation) for tool_allocation in tool_allocations]
 
-def create_tool_allocation(tool_allocation_data: AsignacionHerramientaCreate) -> AsignacionHerramientaOut:
+def create_tool_allocation(tool_allocation_data: ToolAllocationCreate) -> ToolAllocationOut:
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -33,9 +33,9 @@ def create_tool_allocation(tool_allocation_data: AsignacionHerramientaCreate) ->
     tool_allocation_id = cursor.lastrowid
     conn.close()
 
-    return AsignacionHerramientaOut(ID=tool_allocation_id, **tool_allocation_data.dict())
+    return ToolAllocationOut(ID=tool_allocation_id, **tool_allocation_data.dict())
 
-def update_tool_allocation(tool_allocation_id: int, tool_allocation_data: AsignacionHerramientaCreate) -> AsignacionHerramientaOut:
+def update_tool_allocation(tool_allocation_id: int, tool_allocation_data: ToolAllocationCreate) -> ToolAllocationOut:
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -47,7 +47,7 @@ def update_tool_allocation(tool_allocation_id: int, tool_allocation_data: Asigna
     conn.commit()
     conn.close()
 
-    return AsignacionHerramientaOut(ID=tool_allocation_id, **tool_allocation_data.dict())
+    return ToolAllocationOut(ID=tool_allocation_id, **tool_allocation_data.dict())
 
 def delete_tool_allocation(tool_allocation_id: int) -> None:
     conn = get_db_connection()

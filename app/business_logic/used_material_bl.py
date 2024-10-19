@@ -3,6 +3,7 @@ from app.repositories.used_material_repository import (
     create_used_material, get_used_material_by_id, get_all_used_materials, update_used_material, delete_used_material
 )
 from app.repositories.material_allocation_repository import get_material_allocation_by_id
+from app.repositories.used_material_repository import get_used_materials_by_asignacion_material_id
 from app.schemas.used_material_schema import UsedMaterialCreate, UsedMaterialOut
 
 class UsedMaterialBL:
@@ -13,12 +14,18 @@ class UsedMaterialBL:
         material = get_material_allocation_by_id(used_material_data.ASIGNACION_MATERIAL_ID)
         if not material:
             raise ValueError("Material not found")
+        
+        # 2. Obtener todos los materiales usados asociados al ASIGNACION_MATERIAL_ID
+        used_materials = get_used_materials_by_asignacion_material_id(used_material_data.ASIGNACION_MATERIAL_ID)
 
-        # 2. Actualizar la cantidad de material según el tipo de movimiento
-        if material.CANTIDAD < used_material_data.CANTIDAD:
+        # 3. Sumar la cantidad de materiales ya usados
+        total_used_quantity = sum(used_material.CANTIDAD for used_material in used_materials) if used_materials else 0
+
+        # 4. Verificar si la cantidad sumada más la nueva cantidad excede el total disponible en MATERIAL_ALLOCATION
+        if total_used_quantity + used_material_data.CANTIDAD > material.CANTIDAD:
             raise ValueError("Insufficient material quantity for the requested output")
 
-        # 3. Crear el flujo de material en la tabla FLUJO_MATERIAL
+        # 5. Si la validación pasa, proceder a crear el flujo de material en la tabla USO_MATERIAL
         return create_used_material(used_material_data)
 
 

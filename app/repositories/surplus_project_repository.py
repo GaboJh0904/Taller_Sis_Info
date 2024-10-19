@@ -1,7 +1,7 @@
 from app.db.connection import get_db_connection
-from app.schemas.surplus_project_schema import SobranteProyectoOut, SobranteProyectoCreate
+from app.schemas.surplus_project_schema import SurplusOut, SurplusCreate
 
-def get_surplus_by_id(surplus_id: int) -> SobranteProyectoOut | None:
+def get_surplus_by_id(surplus_id: int) -> SurplusOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM SOBRANTE_PROYECTO WHERE ID = %s", (surplus_id,))
@@ -9,19 +9,19 @@ def get_surplus_by_id(surplus_id: int) -> SobranteProyectoOut | None:
     conn.close()
 
     if surplus:
-        return SobranteProyectoOut(**surplus)
+        return SurplusOut(**surplus)
     return None
 
-def get_all_surpluses() -> list[SobranteProyectoOut]:
+def get_all_surpluses() -> list[SurplusOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM SOBRANTE_PROYECTO")
     surpluses = cursor.fetchall()
     conn.close()
 
-    return [SobranteProyectoOut(**surplus) for surplus in surpluses]
+    return [SurplusOut(**surplus) for surplus in surpluses]
 
-def create_surplus(surplus_data: SobranteProyectoCreate) -> SobranteProyectoOut:
+def create_surplus(surplus_data: SurplusCreate) -> SurplusOut:
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -33,9 +33,9 @@ def create_surplus(surplus_data: SobranteProyectoCreate) -> SobranteProyectoOut:
     surplus_id = cursor.lastrowid
     conn.close()
 
-    return SobranteProyectoOut(ID=surplus_id, **surplus_data.dict())
+    return SurplusOut(ID=surplus_id, **surplus_data.dict())
 
-def update_surplus(surplus_id: int, surplus_data: SobranteProyectoCreate) -> SobranteProyectoOut:
+def update_surplus(surplus_id: int, surplus_data: SurplusCreate) -> SurplusOut:
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -47,7 +47,7 @@ def update_surplus(surplus_id: int, surplus_data: SobranteProyectoCreate) -> Sob
     conn.commit()
     conn.close()
 
-    return SobranteProyectoOut(ID=surplus_id, **surplus_data.dict())
+    return SurplusOut(ID=surplus_id, **surplus_data.dict())
 
 def delete_surplus(surplus_id: int) -> None:
     conn = get_db_connection()

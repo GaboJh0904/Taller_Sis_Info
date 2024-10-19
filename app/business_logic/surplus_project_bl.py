@@ -1,48 +1,53 @@
-# app/services/surplus_project_bl.py
+# app/services/surplus_bl.py
 from app.repositories.surplus_project_repository import (
-    create_surplus_project, get_surplus_project_by_id, get_all_surplus_projects, update_surplus_project, delete_surplus_project
+    create_surplus, get_surplus_by_id, get_all_surpluses, update_surplus, delete_surplus
 )
 from app.repositories.material_allocation_repository import get_material_allocation_by_id
-from app.schemas.surplus_project_schema import SurplusProjectCreate, SurplusProjectOut
+from app.repositories.used_material_repository import get_used_materials_by_asignacion_material_id
+from app.schemas.surplus_project_schema import SurplusCreate, SurplusOut
 
 class SurplusProjectBL:
 
     @staticmethod
-    def create_new_surplus_project(surplus_project_data: SurplusProjectCreate) -> SurplusProjectOut:
+    def create_new_surplus(surplus_data: SurplusCreate) -> SurplusOut:
         # 1. Obtener el material asociado al ASIGNACION_MATERIAL_ID
-        material = get_material_allocation_by_id(surplus_project_data.ASIGNACION_MATERIAL_ID)
+        material = get_material_allocation_by_id(surplus_data.ASIGNACION_MATERIAL_ID)
         if not material:
             raise ValueError("Material not found")
+        
+        # 2. Obtener todos los materiales usados asociados al ASIGNACION_MATERIAL_ID
+        used_materials = get_used_materials_by_asignacion_material_id(surplus_data.ASIGNACION_MATERIAL_ID)
 
-        # 2. Actualizar la cantidad de material según el tipo de movimiento
-        if material.CANTIDAD < surplus_project_data.CANTIDAD:
-            raise ValueError("Insufficient material quantity for the requested output")
+        # 3. Sumar la cantidad de materiales ya usados
+        total_used_quantity = sum(used_material.CANTIDAD for used_material in used_materials) if used_materials else 0
 
-        # 3. Crear el flujo de material en la tabla FLUJO_MATERIAL
-        return create_surplus_project(surplus_project_data)
-
+        # 4. Registramos el sobrante de material en la tabla SOBRANTE_PROYECTO
+        surplus_data.CANTIDAD = material.CANTIDAD - total_used_quantity
+        
+        # 5. Crear el sobrante de material en la tabla SOBRANTE_PROYECTO
+        return create_surplus(surplus_data)
 
     @staticmethod
-    def get_surplus_project(surplus_project_id: int) -> SurplusProjectOut:
-        surplus_project = get_surplus_project_by_id(surplus_project_id)
-        if not surplus_project:
+    def get_surplus(surplus_id: int) -> SurplusOut:
+        surplus = get_surplus_by_id(surplus_id)
+        if not surplus:
             raise ValueError("Surplus material not found")
-        return surplus_project
+        return surplus
 
     @staticmethod
-    def get_all_surplus_projects() -> list[SurplusProjectOut]:
-        return get_all_surplus_projects()
+    def get_all_surpluses() -> list[SurplusOut]:
+        return get_all_surpluses()
 
     @staticmethod
-    def update_existing_surplus_project(surplus_project_id: int, surplus_project_data: SurplusProjectCreate) -> SurplusProjectOut:
-        surplus_project = get_surplus_project_by_id(surplus_project_id)
-        if not surplus_project:
+    def update_existing_surplus(surplus_id: int, surplus_data: SurplusCreate) -> SurplusOut:
+        surplus = get_surplus_by_id(surplus_id)
+        if not surplus:
             raise ValueError("Surplus material not found")
-        return update_surplus_project(surplus_project_id, surplus_project_data)
+        return update_surplus(surplus_id, surplus_data)
 
     @staticmethod
-    def delete_surplus_project(surplus_project_id: int) -> None:
-        surplus_project = get_surplus_project_by_id(surplus_project_id)
-        if not surplus_project:
+    def delete_surplus(surplus_id: int) -> None:
+        surplus = get_surplus_by_id(surplus_id)
+        if not surplus:
             raise ValueError("Surplus material not found")
-        delete_surplus_project(surplus_project_id)
+        delete_surplus(surplus_id)

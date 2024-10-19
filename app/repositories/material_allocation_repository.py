@@ -1,7 +1,7 @@
 from app.db.connection import get_db_connection
-from app.schemas.material_allocation_schema import AsignacionMaterialOut, AsignacionMaterialCreate
+from app.schemas.material_allocation_schema import MaterialAllocationOut, MaterialAllocationCreate
 
-def get_material_allocation_by_id(material_allocation_id: int) -> AsignacionMaterialOut | None:
+def get_material_allocation_by_id(material_allocation_id: int) -> MaterialAllocationOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM ASIGNACION_MATERIAL WHERE ID = %s", (material_allocation_id,))
@@ -9,19 +9,19 @@ def get_material_allocation_by_id(material_allocation_id: int) -> AsignacionMate
     conn.close()
 
     if material_allocation:
-        return AsignacionMaterialOut(**material_allocation)
+        return MaterialAllocationOut(**material_allocation)
     return None
 
-def get_all_material_allocations() -> list[AsignacionMaterialOut]:
+def get_all_material_allocations() -> list[MaterialAllocationOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM ASIGNACION_MATERIAL")
     material_allocations = cursor.fetchall()
     conn.close()
 
-    return [AsignacionMaterialOut(**material_allocation) for material_allocation in material_allocations]
+    return [MaterialAllocationOut(**material_allocation) for material_allocation in material_allocations]
 
-def create_material_allocation(material_allocation_data: AsignacionMaterialCreate) -> AsignacionMaterialOut:
+def create_material_allocation(material_allocation_data: MaterialAllocationCreate) -> MaterialAllocationOut:
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -33,9 +33,9 @@ def create_material_allocation(material_allocation_data: AsignacionMaterialCreat
     material_allocation_id = cursor.lastrowid
     conn.close()
 
-    return AsignacionMaterialOut(ID=material_allocation_id, **material_allocation_data.dict())
+    return MaterialAllocationOut(ID=material_allocation_id, **material_allocation_data.dict())
 
-def update_material_allocation(material_allocation_id: int, material_allocation_data: AsignacionMaterialCreate) -> AsignacionMaterialOut:
+def update_material_allocation(material_allocation_id: int, material_allocation_data: MaterialAllocationCreate) -> MaterialAllocationOut:
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -47,7 +47,7 @@ def update_material_allocation(material_allocation_id: int, material_allocation_
     conn.commit()
     conn.close()
 
-    return AsignacionMaterialOut(ID=material_allocation_id, **material_allocation_data.dict())
+    return MaterialAllocationOut(ID=material_allocation_id, **material_allocation_data.dict())
 
 def delete_material_allocation(material_allocation_id: int) -> None:
     conn = get_db_connection()
