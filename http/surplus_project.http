@@ -1,0 +1,29 @@
+POST http://localhost:8000/surpluses/
+Content-Type: application/json
+
+{
+  "CANTIDAD": 0,
+  "ASIGNACION_MATERIAL_ID": 2
+}
+
+### Llamar a todos los excedentes
+GET http://localhost:8000/surpluses/
+#Authorization: Bearer {{access_token}}
+
+### Obtener un excedente por ID
+GET http://localhost:8000/surpluses/1
+#Authorization: Bearer {{access_token}}
+
+### Actualizar un excedente existente por ID
+PUT http://localhost:8000/surpluses/2
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "CANTIDAD": 75,
+  "ASIGNACION_MATERIAL_ID": 1
+}
+
+### Eliminar un excedente por ID
+DELETE http://localhost:8000/surpluses/1
+#Authorization: Bearer {{access_token}}
