@@ -17,7 +17,7 @@ def create_new_tool_allocation(tool_allocation_data: ToolAllocationCreate, flow_
         tool_allocation_data.FLUJO_HERRAMIENTA_ID = flow_tool.ID
         
         # 3. Crear la asignación de herramienta
-        return ToolAllocationBL.create_new_tool_allocation(tool_allocation_data)
+        return ToolAllocationBL.create_new_tool_allocation(tool_allocation_data, flow_tool_data)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

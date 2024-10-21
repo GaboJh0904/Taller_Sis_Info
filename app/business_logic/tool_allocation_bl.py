@@ -4,13 +4,14 @@ from app.repositories.tool_allocation_repository import (
 )
 from app.repositories.tool_repository import get_tool_by_id
 from app.schemas.tool_allocation_schema import ToolAllocationCreate, ToolAllocationOut
+from app.schemas.flow_tool_schema import FlowToolCreate
 
 class ToolAllocationBL:
 
     @staticmethod
-    def create_new_tool_allocation(tool_allocation_data: ToolAllocationCreate) -> ToolAllocationOut:
+    def create_new_tool_allocation(tool_allocation_data: ToolAllocationCreate, flow_tool_data: FlowToolCreate) -> ToolAllocationOut:
         # 1. Obtener la herramienta asociada al HERRAMIENTA_ID
-        tool = get_tool_by_id(tool_allocation_data.HERRAMIENTA_ID)
+        tool = get_tool_by_id(flow_tool_data.HERRAMIENTA_ID)
         if not tool:
             raise ValueError("Tool not found")
 

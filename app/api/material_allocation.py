@@ -17,7 +17,7 @@ def create_new_material_allocation(material_allocation_data: MaterialAllocationC
         material_allocation_data.FLUJO_MATERIAL_ID = flow_material.ID
         
         # 3. Crear la asignación de material
-        return MaterialAllocationBL.create_new_material_allocation(material_allocation_data)
+        return MaterialAllocationBL.create_new_material_allocation(material_allocation_data, flow_material_data)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

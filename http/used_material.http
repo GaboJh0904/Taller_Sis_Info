@@ -1,0 +1,33 @@
+POST http://localhost:8000/used-materials/
+Content-Type: application/json
+
+{
+  "ASIGNACION_MATERIAL_ID": 2,
+  "CANTIDAD": 2,
+  "FECHA": "2024-10-20",
+  "DETALLE": "Material usado en el proyecto A"
+}
+
+### Llamar a todos los materiales usados
+GET http://localhost:8000/used-materials/
+#Authorization: Bearer {{access_token}}
+
+### Obtener un material usado por ID
+GET http://localhost:8000/used-materials/2
+#Authorization: Bearer {{access_token}}
+
+### Actualizar un material usado existente por ID
+PUT http://localhost:8000/used-materials/5
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "ASIGNACION_MATERIAL_ID": 1,
+  "CANTIDAD": 45,
+  "FECHA": "2024-10-25",
+  "DETALLE": "Actualización de uso de material"
+}
+
+### Eliminar un material usado por ID
+DELETE http://localhost:8000/used-materials/3
+#Authorization: Bearer {{access_token}}

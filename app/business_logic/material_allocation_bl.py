@@ -4,13 +4,14 @@ from app.repositories.material_allocation_repository import (
 )
 from app.repositories.material_repository import get_material_by_id
 from app.schemas.material_allocation_schema import MaterialAllocationCreate, MaterialAllocationOut
+from app.schemas.flow_material_schema import FlowMaterialCreate
 
 class MaterialAllocationBL:
 
     @staticmethod
-    def create_new_material_allocation(material_allocation_data: MaterialAllocationCreate) -> MaterialAllocationOut:
+    def create_new_material_allocation(material_allocation_data: MaterialAllocationCreate, flow_material_data: FlowMaterialCreate) -> MaterialAllocationOut:
         # 1. Obtener el material asociado al MATERIAL_ID
-        material = get_material_by_id(material_allocation_data.MATERIAL_ID)
+        material = get_material_by_id(flow_material_data.MATERIAL_ID)
         if not material:
             raise ValueError("Material not found")
 
