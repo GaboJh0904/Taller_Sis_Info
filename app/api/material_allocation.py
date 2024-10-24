@@ -4,6 +4,7 @@ from app.schemas.material_allocation_schema import MaterialAllocationCreate, Mat
 from app.business_logic.material_allocation_bl import MaterialAllocationBL
 from app.schemas.flow_material_schema import FlowMaterialCreate
 from app.business_logic.flow_material_bl import FlowMaterialBL
+from app.schemas.material_allocation_with_details_schema import MaterialAllocationWithDetailsOut
 
 router = APIRouter()
 
@@ -44,5 +45,12 @@ def delete_existing_material_allocation(material_allocation_id: int):
     try:
         MaterialAllocationBL.delete_material_allocation(material_allocation_id)
         return {"detail": "Allocation material deleted successfully"}
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/project/{project_id}/materials", response_model=list[MaterialAllocationWithDetailsOut])
+def get_material_allocations_with_details_by_project(project_id: int):
+    try:
+        return MaterialAllocationBL.get_material_allocations_with_details_by_project(project_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

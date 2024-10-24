@@ -55,3 +55,14 @@ def delete_material_allocation(material_allocation_id: int) -> None:
     cursor.execute("DELETE FROM ASIGNACION_MATERIAL WHERE ID = %s", (material_allocation_id,))
     conn.commit()
     conn.close()
+
+def get_material_allocations_by_project(project_id: int) -> list[MaterialAllocationOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    print(f"Fetching allocations for project ID: {project_id}")
+    cursor.execute("SELECT * FROM ASIGNACION_MATERIAL WHERE PROYECTO_ID = %s", (project_id,))
+    allocations = cursor.fetchall()
+    print(allocations)
+    conn.close()
+
+    return [MaterialAllocationOut(**allocation) for allocation in allocations]

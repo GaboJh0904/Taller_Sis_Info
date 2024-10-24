@@ -1,6 +1,6 @@
 # app/services/used_material_bl.py
 from app.repositories.used_material_repository import (
-    create_used_material, get_used_material_by_id, get_all_used_materials, update_used_material, delete_used_material
+    create_used_material, get_used_material_by_id, get_all_used_materials, update_used_material, delete_used_material, get_used_material_by_material_allocation
 )
 from app.repositories.material_allocation_repository import get_material_allocation_by_id
 from app.repositories.used_material_repository import get_used_materials_by_asignacion_material_id
@@ -53,3 +53,12 @@ class UsedMaterialBL:
         if not used_material:
             raise ValueError("Used material not found")
         delete_used_material(used_material_id)
+
+    @staticmethod
+    def get_used_material_by_material_allocation_id(material_allocation_id: int) -> list[UsedMaterialOut]:
+        # Obtener las asignaciones de herramientas por proyecto
+        allocations = get_used_material_by_material_allocation(material_allocation_id)
+        if not allocations:
+            raise ValueError("Used material not found")
+        return allocations
+

@@ -2,9 +2,12 @@
 from app.repositories.tool_allocation_repository import (
     create_tool_allocation, get_tool_allocation_by_id, get_all_tool_allocations, update_tool_allocation, delete_tool_allocation
 )
+from app.repositories.tool_allocation_repository import get_tool_allocations_by_project
 from app.repositories.tool_repository import get_tool_by_id
+from app.repositories.flow_tool_repository import get_flow_tool_by_id
 from app.schemas.tool_allocation_schema import ToolAllocationCreate, ToolAllocationOut
 from app.schemas.flow_tool_schema import FlowToolCreate
+from app.schemas.tool_allocation_with_details_schema import ToolAllocationWithDetailsOut
 
 class ToolAllocationBL:
 
@@ -46,3 +49,33 @@ class ToolAllocationBL:
         if not tool_allocation:
             raise ValueError("Allocation tool not found")
         delete_tool_allocation(tool_allocation_id)
+        
+    @staticmethod
+    def get_tool_allocations_with_details_by_project(project_id: int) -> list[ToolAllocationWithDetailsOut]:
+        # Obtener las asignaciones de herramientas por proyecto
+        allocations = get_tool_allocations_by_project(project_id)
+        print(allocations)
+        results = []
+
+        # Iterar sobre cada asignación y buscar el flujo de herramientas y la herramienta asociado
+        for allocation in allocations:
+            flow_tool = get_flow_tool_by_id(allocation.FLUJO_HERRAMIENTA_ID)
+            if not flow_tool:
+                raise ValueError(f"Flow tool not found for ID {allocation.FLUJO_HERRAMIENTA_ID}")
+
+            tool = get_tool_by_id(flow_tool.HERRAMIENTA_ID)
+            if not tool:
+                raise ValueError(f"Tool not found for ID {flow_tool.HERRAMIENTA_ID}")
+
+            # Combinar los datos en un nuevo objeto ToolAllocationWithDetailsOut
+            details = ToolAllocationWithDetailsOut(
+                id=allocation.ID,
+                nombre_herramienta=tool.NOMBRE,
+                descripcion_herramienta=tool.DESCRIPCION,
+                cantidad_asignada=allocation.CANTIDAD,
+                cantidad_disponible=tool.CANTIDAD,
+                fecha_flujo=flow_tool.FECHA
+            )
+            results.append(details)
+        return results
+
