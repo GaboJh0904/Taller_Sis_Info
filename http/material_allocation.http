@@ -1,0 +1,40 @@
+POST http://localhost:8000/material-allocations/
+Content-Type: application/json
+
+{
+  "material_allocation_data": {
+  "FLUJO_MATERIAL_ID": 1,
+  "PROYECTO_ID": 1,
+  "CANTIDAD": 15
+},
+  "flow_material_data": {
+  "MATERIAL_ID": 1,
+  "ALMACEN_ID": 1,
+  "CANTIDAD": 15,
+  "MOVIMIENTO": "salida",
+  "FECHA": "2024-01-01"
+}
+}
+
+### Llamar a todos los flujos de material
+GET http://localhost:8000/material-allocations/
+#Authorization: Bearer {{access_token}}
+
+### Obtener un flujo de material por ID
+GET http://localhost:8000/material-allocations/1
+#Authorization: Bearer {{access_token}}
+
+### Actualizar un flujo de material existente por ID
+PUT http://localhost:8000/material-allocations/3
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "FLUJO_MATERIAL_ID": 1,
+  "PROYECTO_ID": 1,
+  "CANTIDAD": 200
+}
+
+### Eliminar un flujo de material por ID
+DELETE http://localhost:8000/material-allocations/1
+#Authorization: Bearer {{access_token}}
