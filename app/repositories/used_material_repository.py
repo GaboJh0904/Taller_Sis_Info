@@ -66,3 +66,14 @@ def delete_used_material(used_material_id: int) -> None:
     cursor.execute("DELETE FROM USO_MATERIAL WHERE ID = %s", (used_material_id,))
     conn.commit()
     conn.close()
+
+def get_used_material_by_material_allocation(material_allocation_id: int) -> list[UsedMaterialOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    print(f"Fetching allocations for project ID: {material_allocation_id}")
+    cursor.execute("SELECT * FROM USO_MATERIAL WHERE ASIGNACION_MATERIAL_ID = %s", (material_allocation_id,))
+    allocations = cursor.fetchall()
+    print(allocations)
+    conn.close()
+
+    return [UsedMaterialOut(**allocation) for allocation in allocations]
