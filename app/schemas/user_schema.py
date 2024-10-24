@@ -11,6 +11,7 @@ class UserCreate(UserBase):
 
 class UserOut(UserBase):
     ID: int
+    PASSWOR_HASH: str
 
 class Token(BaseModel):
     access_token: str
