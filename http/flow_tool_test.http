@@ -3,11 +3,11 @@ POST http://localhost:8000/flow-tools/
 Content-Type: application/json
 
 {
-  "CANTIDAD": 50,
+  "CANTIDAD": 3,
   "MOVIMIENTO": "entrada",
   "FECHA": "2024-01-01",
   "ALMACEN_ID": 1,
-  "HERRAMIENTA_ID": 1
+  "HERRAMIENTA_ID": 3
 }
 
 ### Crear un nuevo flujo de herramienta (salida)

@@ -6,7 +6,19 @@ from app.schemas.flow_tool_schema import FlowToolOut, FlowToolCreate
 def get_flow_tool_by_id(flow_tool_id: int) -> FlowToolOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM FLUJO_HERRAMIENTA WHERE ID = %s", (flow_tool_id,))
+    cursor.execute('''
+    SELECT 
+        FH.*,
+        A.UBICACION AS ALMACEN,
+        H.NOMBRE AS HERRAMIENTA
+    FROM 
+        FLUJO_HERRAMIENTA FH
+    JOIN 
+        ALMACEN A ON FH.ALMACEN_ID = A.ID
+    JOIN 
+        HERRAMIENTA H ON FH.HERRAMIENTA_ID = H.ID
+    WHERE ID = %s;
+    ''', (flow_tool_id,))
     flow_tool = cursor.fetchone()
     conn.close()
 
@@ -18,7 +30,19 @@ def get_flow_tool_by_id(flow_tool_id: int) -> FlowToolOut | None:
 def get_all_flow_tools() -> list[FlowToolOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM FLUJO_HERRAMIENTA")
+    cursor.execute('''
+    SELECT 
+        FH.*,
+        A.UBICACION AS ALMACEN,
+        H.NOMBRE AS HERRAMIENTA
+    FROM 
+        FLUJO_HERRAMIENTA FH
+    JOIN 
+        ALMACEN A ON FH.ALMACEN_ID = A.ID
+    JOIN 
+        HERRAMIENTA H ON FH.HERRAMIENTA_ID = H.ID;
+
+    ''')
     flow_tools = cursor.fetchall()
     conn.close()
 
@@ -41,7 +65,7 @@ def create_flow_tool(flow_tool_data: FlowToolCreate) -> FlowToolOut:
     flow_tool_id = cursor.lastrowid  # Obtenemos el ID generado
     conn.close()
 
-    return FlowToolOut(ID=flow_tool_id, **flow_tool_data.dict())
+    return FlowToolOut(ID=flow_tool_id,HERRAMIENTA='',ALMACEN='', **flow_tool_data.dict())
 
 
 def update_flow_tool(flow_tool_id: int, flow_tool_data: FlowToolCreate) -> FlowToolOut:
