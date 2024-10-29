@@ -20,3 +20,5 @@ class FlowToolCreate(FlowToolBase):
 
 class FlowToolOut(FlowToolBase):
     ID: int  # Al devolver un flujo de herramienta, incluimos el ID
+    ALMACEN: str
+    HERRAMIENTA: str

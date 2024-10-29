@@ -37,3 +37,10 @@ def delete_existing_used_material(used_material_id: int):
         return {"detail": "Used material deleted successfully"}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+@router.get("/material_allocation/{material_allocation_id}", response_model=list[UsedMaterialOut])
+def get_used_material_by_material_allocation_id(material_allocation_id: int):
+    try:
+        return UsedMaterialBL.get_used_material_by_material_allocation_id(material_allocation_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

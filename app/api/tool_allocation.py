@@ -4,6 +4,7 @@ from app.schemas.tool_allocation_schema import ToolAllocationCreate, ToolAllocat
 from app.business_logic.tool_allocation_bl import ToolAllocationBL
 from app.schemas.flow_tool_schema import FlowToolCreate
 from app.business_logic.flow_tool_bl import FlowToolBL
+from app.schemas.tool_allocation_with_details_schema import ToolAllocationWithDetailsOut
 
 router = APIRouter()
 
@@ -44,5 +45,12 @@ def delete_existing_tool_allocation(tool_allocation_id: int):
     try:
         ToolAllocationBL.delete_tool_allocation(tool_allocation_id)
         return {"detail": "Flow tool deleted successfully"}
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/project/{project_id}/tools", response_model=list[ToolAllocationWithDetailsOut])
+def get_tool_allocations_with_details_by_project(project_id: int):
+    try:
+        return ToolAllocationBL.get_tool_allocations_with_details_by_project(project_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

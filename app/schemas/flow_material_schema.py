@@ -20,3 +20,6 @@ class FlowMaterialCreate(FlowMaterialBase):
 
 class FlowMaterialOut(FlowMaterialBase):
     ID: int  # Al devolver un flujo de material, incluimos el ID
+    MATERIAL: str
+    ALMACEN: str
+
