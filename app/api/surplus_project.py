@@ -37,3 +37,10 @@ def delete_existing_surplus(surplus_id: int):
         return {"detail": "Surplus material deleted successfully"}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/material_allocation/{material_allocation_id}", response_model=list[SurplusOut])
+def get_surplus_project_by_material_allocation_id(material_allocation_id: int):
+    try:
+        return SurplusProjectBL.get_surplus_project_by_material_allocation_id(material_allocation_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

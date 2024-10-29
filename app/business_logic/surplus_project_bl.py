@@ -1,6 +1,6 @@
 # app/services/surplus_bl.py
 from app.repositories.surplus_project_repository import (
-    create_surplus, get_surplus_by_id, get_all_surpluses, update_surplus, delete_surplus
+    create_surplus, get_surplus_by_id, get_all_surpluses, update_surplus, delete_surplus, get_surplus_project_by_material_allocation
 )
 from app.repositories.material_allocation_repository import get_material_allocation_by_id
 from app.repositories.used_material_repository import get_used_materials_by_asignacion_material_id
@@ -51,3 +51,11 @@ class SurplusProjectBL:
         if not surplus:
             raise ValueError("Surplus material not found")
         delete_surplus(surplus_id)
+
+    @staticmethod
+    def get_surplus_project_by_material_allocation_id(material_allocation_id: int) -> list[SurplusOut]:
+        # Obtener las asignaciones de herramientas por proyecto
+        allocations = get_surplus_project_by_material_allocation(material_allocation_id)
+        if not allocations:
+            raise ValueError("Used material not found")
+        return allocations
