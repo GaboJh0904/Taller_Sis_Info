@@ -51,9 +51,9 @@ class ToolAllocationBL:
         delete_tool_allocation(tool_allocation_id)
         
     @staticmethod
-    def get_tool_allocations_with_details_by_project(project_id: int) -> list[ToolAllocationWithDetailsOut]:
+    def get_tool_allocations_with_details_by_project(project_id: int, fase: str) -> list[ToolAllocationWithDetailsOut]:
         # Obtener las asignaciones de herramientas por proyecto
-        allocations = get_tool_allocations_by_project(project_id)
+        allocations = get_tool_allocations_by_project(project_id, fase)
         print(allocations)
         results = []
 
