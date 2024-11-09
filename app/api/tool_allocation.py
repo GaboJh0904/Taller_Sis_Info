@@ -48,9 +48,9 @@ def delete_existing_tool_allocation(tool_allocation_id: int):
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-@router.get("/project/{project_id}/tools", response_model=list[ToolAllocationWithDetailsOut])
-def get_tool_allocations_with_details_by_project(project_id: int):
+@router.get("/project/{project_id}/tools/{fase}", response_model=list[ToolAllocationWithDetailsOut])
+def get_tool_allocations_with_details_by_project(project_id: int, fase: str):
     try:
-        return ToolAllocationBL.get_tool_allocations_with_details_by_project(project_id)
+        return ToolAllocationBL.get_tool_allocations_with_details_by_project(project_id, fase)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

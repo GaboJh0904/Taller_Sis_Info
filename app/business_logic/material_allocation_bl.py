@@ -52,9 +52,9 @@ class MaterialAllocationBL:
         delete_material_allocation(material_allocation_id)
         
     @staticmethod
-    def get_material_allocations_with_details_by_project(project_id: int) -> list[MaterialAllocationWithDetailsOut]:
+    def get_material_allocations_with_details_by_project(project_id: int, fase: str) -> list[MaterialAllocationWithDetailsOut]:
         # Obtener las asignaciones de material por proyecto
-        allocations = get_material_allocations_by_project(project_id)
+        allocations = get_material_allocations_by_project(project_id, fase)
         print(allocations)
         results = []
 
