@@ -36,6 +36,53 @@ app.include_router(used_material.router, prefix="/used-materials")
 
 
 
+from fastapi import FastAPI, WebSocket, Depends
+from app.db.connection import get_connection
+import asyncio
+
+app = FastAPI()
+
+connected_clients = []
+
+
+@app.websocket("/ws/material")
+async def websocket_material(websocket: WebSocket):
+    await websocket.accept()
+    connected_clients.append(websocket)
+
+    try:
+        while True:
+            # Envía los datos de la tabla MATERIAL a todos los clientes conectados
+            async with get_connection() as conn:
+                async with conn.cursor() as cursor:
+                    query = "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, PROVEEDOR_ID, CANTIDAD_MINIMA FROM MATERIAL"
+                    await cursor.execute(query)
+                    records = await cursor.fetchall()
+
+                    data = [
+                        {
+                            "ID": row[0],
+                            "NOMBRE": row[1],
+                            "DESCRIPCION": row[2],
+                            "CANTIDAD": row[3],
+                            "PRECIO_UNITARIO": row[4],
+                            "PROVEEDOR_ID": row[5],
+                            "CANTIDAD_MINIMA": row[6],
+                        }
+                        for row in records
+                    ]
+
+                    # Envía los datos a cada cliente conectado
+                    for client in connected_clients:
+                        await client.send_json(data)
+
+            # Espera unos segundos antes de enviar la siguiente actualización
+            await asyncio.sleep(3)
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        connected_clients.remove(websocket)
 
 if __name__ == "__main__":
     import uvicorn
