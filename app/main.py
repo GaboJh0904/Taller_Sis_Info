@@ -40,8 +40,6 @@ from fastapi import FastAPI, WebSocket, Depends
 from app.db.connection import get_connection
 import asyncio
 
-app = FastAPI()
-
 connected_clients = []
 
 
@@ -55,7 +53,7 @@ async def websocket_material(websocket: WebSocket):
             # Envía los datos de la tabla MATERIAL a todos los clientes conectados
             async with get_connection() as conn:
                 async with conn.cursor() as cursor:
-                    query = "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, PROVEEDOR_ID, CANTIDAD_MINIMA FROM MATERIAL"
+                    query = "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, CANTIDAD_MINIMA FROM MATERIAL"
                     await cursor.execute(query)
                     records = await cursor.fetchall()
 
@@ -66,8 +64,7 @@ async def websocket_material(websocket: WebSocket):
                             "DESCRIPCION": row[2],
                             "CANTIDAD": row[3],
                             "PRECIO_UNITARIO": row[4],
-                            "PROVEEDOR_ID": row[5],
-                            "CANTIDAD_MINIMA": row[6],
+                            "CANTIDAD_MINIMA": row[5],
                         }
                         for row in records
                     ]

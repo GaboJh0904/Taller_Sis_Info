@@ -20,10 +20,6 @@ def get_db_connection():
     """Obtiene una conexión del pool"""
     return connection_pool.get_connection()
 
-
-
-
-
 DATABASE_CONFIG = {
     "host": settings.DB_HOST,
     "port": 3306,
