@@ -1,0 +1,34 @@
+### Create a new purchase tool detail
+POST http://localhost:8000/purchase-tool-details/
+Content-Type: application/json
+
+{
+  "COSTO": 100.50,
+  "CANTIDAD": 5,
+  "HERRAMIENTA_ID": 1,
+  "COMPRA_HERRAMIENTA_ID": 2
+}
+
+### Get all purchase tool details
+GET http://localhost:8000/purchase-tool-details/
+#Authorization: Bearer {{access_token}}
+
+### Get a purchase tool detail by ID
+GET http://localhost:8000/purchase-tool-details/1
+#Authorization: Bearer {{access_token}}
+
+### Update an existing purchase tool detail by ID
+PUT http://localhost:8000/purchase-tool-details/1
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "COSTO": 120.75,
+  "CANTIDAD": 6,
+  "HERRAMIENTA_ID": 1,
+  "COMPRA_HERRAMIENTA_ID": 2
+}
+
+### Delete a purchase tool detail by ID
+DELETE http://localhost:8000/purchase-tool-details/1
+#Authorization: Bearer {{access_token}}
