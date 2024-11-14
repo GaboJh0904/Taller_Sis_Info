@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from app.api import auth, users, projects, tools, materials, flow_tools, flow_materials
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import (auth, users, projects, tools, materials, flow_tools, flow_materials, surplus_project,
-                     material_allocation, tool_allocation, used_material, purchases_material, purchase_material_details)
+                     material_allocation, tool_allocation, used_material, purchases_material, purchase_material_details,
+                     purchase_tools)
 
 app = FastAPI()
 
@@ -36,6 +37,7 @@ app.include_router(tool_allocation.router, prefix="/tool-allocations")
 app.include_router(used_material.router, prefix="/used-materials")
 app.include_router(purchases_material.router, prefix="/purchases-materials")
 app.include_router(purchase_material_details.router, prefix="/purchase-material-details")
+app.include_router(purchase_tools.router, prefix="/purchase-tools")
 
 
 

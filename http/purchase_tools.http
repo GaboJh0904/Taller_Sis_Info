@@ -1,0 +1,34 @@
+### Create a new purchase tool
+POST http://localhost:8000/purchase-tools/
+Content-Type: application/json
+
+{
+  "COSTO_TOTAL": 2000.00,
+  "FECHA": 20231113,
+  "PROVEEDOR_ID": 1,
+  "DETALLE": "Purchase of tools for project setup"
+}
+
+### Get all purchase tools
+GET http://localhost:8000/purchase-tools/
+#Authorization: Bearer {{access_token}}
+
+### Get a purchase tool by ID
+GET http://localhost:8000/purchase-tools/1
+#Authorization: Bearer {{access_token}}
+
+### Update an existing purchase tool by ID
+PUT http://localhost:8000/purchase-tools/1
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "COSTO_TOTAL": 2500.50,
+  "FECHA": 20231113,
+  "PROVEEDOR_ID": 1,
+  "DETALLE": "Purchase of additional tools for project expansion"
+}
+
+### Delete a purchase tool by ID
+DELETE http://localhost:8000/purchase-tools/1
+#Authorization: Bearer {{access_token}}
