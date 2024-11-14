@@ -9,3 +9,4 @@ INSERT INTO `planificacion_inventario`.`usuario` (`ID`, `PASSWOR_HASH`, `USER_NA
 INSERT INTO `planificacion_inventario`.`material` (`ID`, `NOMBRE`, `DESCRIPCION`, `CANTIDAD`, `PRECIO_UNITARIO`, `CANTIDAD_MINIMA`) VALUES ('1', 'Cemento', 'Polvo', '100', '10', '20');
 
 
+INSERT INTO `planificacion_inventario`.`proveedor` (`ID`, `NOMBRE`, `DIRECCION`, `TELEFONO`) VALUES ('1', 'Proveedor 1', 'La Paz', '12341234');

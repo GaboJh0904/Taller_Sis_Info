@@ -1,0 +1,34 @@
+### Crear una nueva compra de material
+POST http://localhost:8000/purchases-materials/
+Content-Type: application/json
+
+{
+  "COSTO_TOTAL": 1500.50,
+  "FECHA": 20231113,
+  "PROVEEDOR_ID": 1,
+  "DETALLE": "Compra de cemento para proyecto de construcción"
+}
+
+### Obtener el listado de todas las compras de materiales
+GET http://localhost:8000/purchases-materials/
+#Authorization: Bearer {{access_token}}
+
+### Obtener una compra de material por ID
+GET http://localhost:8000/purchases-materials/1
+#Authorization: Bearer {{access_token}}
+
+### Actualizar una compra de material existente por ID
+PUT http://localhost:8000/purchases-materials/1
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "COSTO_TOTAL": 1600.75,
+  "FECHA": 20231113,
+  "PROVEEDOR_ID": 1,
+  "DETALLE": "Compra de cemento y arena para proyecto de construcción"
+}
+
+### Eliminar una compra de material por ID
+DELETE http://localhost:8000/purchases-materials/1
+#Authorization: Bearer {{access_token}}
