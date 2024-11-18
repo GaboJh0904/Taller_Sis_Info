@@ -38,11 +38,11 @@ def create_material(material_data: MaterialCreate) -> MaterialOut:
     cursor = conn.cursor()
     cursor.execute(
         """INSERT INTO MATERIAL 
-           (NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, PROVEEDOR_ID, CANTIDAD_MINIMA)
-           VALUES (%s, %s, %s, %s, %s, %s)""",
+           (NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, CANTIDAD_MINIMA)
+           VALUES (%s, %s, %s, %s, %s)""",
         (
             material_data.NOMBRE, material_data.DESCRIPCION, material_data.CANTIDAD,
-            material_data.PRECIO_UNITARIO, material_data.PROVEEDOR_ID, material_data.CANTIDAD_MINIMA
+            material_data.PRECIO_UNITARIO, material_data.CANTIDAD_MINIMA
         )
     )
     conn.commit()
@@ -58,11 +58,11 @@ def update_material(material_id: int, material_data: MaterialCreate) -> Material
     cursor.execute(
         """UPDATE MATERIAL SET 
            NOMBRE = %s, DESCRIPCION = %s, CANTIDAD = %s, PRECIO_UNITARIO = %s, 
-           PROVEEDOR_ID = %s, CANTIDAD_MINIMA = %s 
+           CANTIDAD_MINIMA = %s 
            WHERE ID = %s""",
         (
             material_data.NOMBRE, material_data.DESCRIPCION, material_data.CANTIDAD,
-            material_data.PRECIO_UNITARIO, material_data.PROVEEDOR_ID, material_data.CANTIDAD_MINIMA,
+            material_data.PRECIO_UNITARIO, material_data.CANTIDAD_MINIMA,
             material_id
         )
     )

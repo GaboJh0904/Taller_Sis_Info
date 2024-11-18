@@ -63,6 +63,7 @@ class MaterialAllocationBL:
             flow_material = get_flow_material_by_id(allocation.FLUJO_MATERIAL_ID)
             if not flow_material:
                 raise ValueError(f"Flow material not found for ID {allocation.FLUJO_MATERIAL_ID}")
+            print("El error no es aqui")
 
             material = get_material_by_id(flow_material.MATERIAL_ID)
             if not material:
