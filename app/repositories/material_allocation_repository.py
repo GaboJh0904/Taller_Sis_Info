@@ -25,9 +25,9 @@ def create_material_allocation(material_allocation_data: MaterialAllocationCreat
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        """INSERT INTO ASIGNACION_MATERIAL (FLUJO_MATERIAL_ID, PROYECTO_ID, CANTIDAD) 
-           VALUES (%s, %s, %s)""",
-        (material_allocation_data.FLUJO_MATERIAL_ID, material_allocation_data.PROYECTO_ID, material_allocation_data.CANTIDAD)
+        """INSERT INTO ASIGNACION_MATERIAL (FLUJO_MATERIAL_ID, PROYECTO_ID, CANTIDAD, FASE) 
+           VALUES (%s, %s, %s, %s)""",
+        (material_allocation_data.FLUJO_MATERIAL_ID, material_allocation_data.PROYECTO_ID, material_allocation_data.CANTIDAD, material_allocation_data.FASE)
     )
     conn.commit()
     material_allocation_id = cursor.lastrowid
@@ -40,9 +40,9 @@ def update_material_allocation(material_allocation_id: int, material_allocation_
     cursor = conn.cursor()
     cursor.execute(
         """UPDATE ASIGNACION_MATERIAL SET 
-           FLUJO_MATERIAL_ID = %s, PROYECTO_ID = %s, CANTIDAD = %s 
+           FLUJO_MATERIAL_ID = %s, PROYECTO_ID = %s, CANTIDAD = %s, FASE = %s
            WHERE ID = %s""",
-        (material_allocation_data.FLUJO_MATERIAL_ID, material_allocation_data.PROYECTO_ID, material_allocation_data.CANTIDAD, material_allocation_id)
+        (material_allocation_data.FLUJO_MATERIAL_ID, material_allocation_data.PROYECTO_ID, material_allocation_data.CANTIDAD, material_allocation_data.FASE, material_allocation_id)
     )
     conn.commit()
     conn.close()
