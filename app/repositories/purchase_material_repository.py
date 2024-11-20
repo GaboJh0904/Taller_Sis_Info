@@ -5,7 +5,17 @@ from app.schemas.purchase_material_schema import PurchaseMaterialOut, PurchaseMa
 def get_purchase_material_by_id(purchase_id: int) -> PurchaseMaterialOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM COMPRA_MATERIAL WHERE ID = %s", (purchase_id,))
+    cursor.execute('''
+    SELECT 
+        cm.*,
+        p.NOMBRE AS PROVEEDOR
+    FROM 
+        COMPRA_MATERIAL cm
+    INNER JOIN 
+        PROVEEDOR p
+    ON 
+        cm.PROVEEDOR_ID = p.ID
+    WHERE cm.ID = %s''', (purchase_id,))
     purchase_material = cursor.fetchone()
     conn.close()
 
@@ -16,7 +26,16 @@ def get_purchase_material_by_id(purchase_id: int) -> PurchaseMaterialOut | None:
 def get_all_purchase_materials() -> list[PurchaseMaterialOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM COMPRA_MATERIAL")
+    cursor.execute('''
+    SELECT 
+        cm.*,
+        p.NOMBRE AS PROVEEDOR
+    FROM 
+        COMPRA_MATERIAL cm
+    INNER JOIN 
+        PROVEEDOR p
+    ON 
+        cm.PROVEEDOR_ID = p.ID;''')
     purchase_materials = cursor.fetchall()
     conn.close()
 
@@ -38,7 +57,7 @@ def create_purchase_material(purchase_data: PurchaseMaterialCreate) -> PurchaseM
     purchase_id = cursor.lastrowid  # Get the generated ID
     conn.close()
 
-    return PurchaseMaterialOut(ID=purchase_id, **purchase_data.dict())
+    return PurchaseMaterialOut(ID=purchase_id, PROVEEDOR="", **purchase_data.dict())
 
 def update_purchase_material(purchase_id: int, purchase_data: PurchaseMaterialCreate) -> PurchaseMaterialOut:
     conn = get_db_connection()
@@ -55,7 +74,7 @@ def update_purchase_material(purchase_id: int, purchase_data: PurchaseMaterialCr
     conn.commit()
     conn.close()
 
-    return PurchaseMaterialOut(ID=purchase_id, **purchase_data.dict())
+    return PurchaseMaterialOut(ID=purchase_id, PROVEEDOR="", **purchase_data.dict())
 
 def delete_purchase_material(purchase_id: int) -> None:
     conn = get_db_connection()

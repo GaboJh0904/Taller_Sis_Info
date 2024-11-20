@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "COSTO_TOTAL": 2000.00,
-  "FECHA": 20231113,
+  "FECHA": "2024-08-26",
   "PROVEEDOR_ID": 1,
   "DETALLE": "Purchase of tools for project setup"
 }
@@ -14,21 +14,21 @@ GET http://localhost:8000/purchase-tools/
 #Authorization: Bearer {{access_token}}
 
 ### Get a purchase tool by ID
-GET http://localhost:8000/purchase-tools/1
+GET http://localhost:8000/purchase-tools/3
 #Authorization: Bearer {{access_token}}
 
 ### Update an existing purchase tool by ID
-PUT http://localhost:8000/purchase-tools/1
+PUT http://localhost:8000/purchase-tools/6
 Content-Type: application/json
 #Authorization: Bearer {{access_token}}
 
 {
   "COSTO_TOTAL": 2500.50,
-  "FECHA": 20231113,
+  "FECHA": "2024-08-25",
   "PROVEEDOR_ID": 1,
   "DETALLE": "Purchase of additional tools for project expansion"
 }
 
 ### Delete a purchase tool by ID
-DELETE http://localhost:8000/purchase-tools/1
+DELETE http://localhost:8000/purchase-tools/6
 #Authorization: Bearer {{access_token}}

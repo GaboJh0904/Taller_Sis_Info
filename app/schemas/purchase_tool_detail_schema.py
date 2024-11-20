@@ -12,3 +12,4 @@ class PurchaseToolDetailCreate(PurchaseToolDetailBase):
 
 class PurchaseToolDetailOut(PurchaseToolDetailBase):
     ID: int  # Include ID when returning a purchase tool detail
+    HERRAMIENTA: str

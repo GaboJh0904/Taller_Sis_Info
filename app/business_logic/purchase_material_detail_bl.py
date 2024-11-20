@@ -1,7 +1,7 @@
 # app/services/purchase_material_detail_bl.py
 from app.repositories.purchase_material_detail_repository import (
     create_purchase_detail, get_purchase_detail_by_id, get_all_purchase_details,
-    update_purchase_detail, delete_purchase_detail
+    update_purchase_detail, delete_purchase_detail, fetch_purchase_details_by_material_purchase_id
 )
 from app.schemas.purchase_material_detail_schema import PurchaseDetailCreate, PurchaseDetailOut
 
@@ -35,3 +35,8 @@ class PurchaseDetailBL:
         if not detail:
             raise ValueError("PurchaseDetail not found")
         delete_purchase_detail(detail_id)
+
+    @staticmethod
+    def retrieve_details_by_material_purchase_id(compra_material_id: int) -> list[PurchaseDetailOut]:
+        return fetch_purchase_details_by_material_purchase_id(compra_material_id)
+

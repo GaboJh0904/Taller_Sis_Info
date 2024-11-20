@@ -6,7 +6,7 @@ Content-Type: application/json
   "COSTO": 100.50,
   "CANTIDAD": 5,
   "HERRAMIENTA_ID": 1,
-  "COMPRA_HERRAMIENTA_ID": 2
+  "COMPRA_HERRAMIENTA_ID": 8
 }
 
 ### Get all purchase tool details
@@ -14,11 +14,11 @@ GET http://localhost:8000/purchase-tool-details/
 #Authorization: Bearer {{access_token}}
 
 ### Get a purchase tool detail by ID
-GET http://localhost:8000/purchase-tool-details/1
+GET http://localhost:8000/purchase-tool-details/4
 #Authorization: Bearer {{access_token}}
 
 ### Update an existing purchase tool detail by ID
-PUT http://localhost:8000/purchase-tool-details/1
+PUT http://localhost:8000/purchase-tool-details/4
 Content-Type: application/json
 #Authorization: Bearer {{access_token}}
 
@@ -26,9 +26,14 @@ Content-Type: application/json
   "COSTO": 120.75,
   "CANTIDAD": 6,
   "HERRAMIENTA_ID": 1,
-  "COMPRA_HERRAMIENTA_ID": 2
+  "COMPRA_HERRAMIENTA_ID": 8
 }
 
 ### Delete a purchase tool detail by ID
 DELETE http://localhost:8000/purchase-tool-details/1
+#Authorization: Bearer {{access_token}}
+
+
+### Get all purchase tool details by purchase ID
+GET http://localhost:8000/purchase-tool-details/by_purchase/8
 #Authorization: Bearer {{access_token}}

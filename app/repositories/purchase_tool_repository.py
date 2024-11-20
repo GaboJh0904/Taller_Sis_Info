@@ -5,7 +5,17 @@ from app.schemas.purchase_tool_schema import PurchaseToolOut, PurchaseToolCreate
 def get_purchase_tool_by_id(purchase_id: int) -> PurchaseToolOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM COMPRA_HERRAMIENTA WHERE ID = %s", (purchase_id,))
+    cursor.execute('''
+    SELECT 
+        ch.*,
+        p.NOMBRE AS PROVEEDOR
+    FROM 
+        COMPRA_HERRAMIENTA ch
+    INNER JOIN 
+        PROVEEDOR p
+    ON 
+        ch.PROVEEDOR_ID = p.ID
+    WHERE ch.ID = %s''', (purchase_id,))
     purchase_tool = cursor.fetchone()
     conn.close()
 
@@ -16,7 +26,17 @@ def get_purchase_tool_by_id(purchase_id: int) -> PurchaseToolOut | None:
 def get_all_purchase_tools() -> list[PurchaseToolOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM COMPRA_HERRAMIENTA")
+    cursor.execute('''
+    SELECT 
+        ch.*,
+        p.NOMBRE AS PROVEEDOR
+    FROM 
+        COMPRA_HERRAMIENTA ch
+    INNER JOIN 
+        PROVEEDOR p
+    ON 
+        ch.PROVEEDOR_ID = p.ID;
+    ''')
     purchase_tools = cursor.fetchall()
     conn.close()
 
@@ -38,7 +58,7 @@ def create_purchase_tool(tool_data: PurchaseToolCreate) -> PurchaseToolOut:
     purchase_id = cursor.lastrowid  # Get the generated ID
     conn.close()
 
-    return PurchaseToolOut(ID=purchase_id, **tool_data.dict())
+    return PurchaseToolOut(ID=purchase_id, PROVEEDOR="",**tool_data.dict())
 
 def update_purchase_tool(purchase_id: int, tool_data: PurchaseToolCreate) -> PurchaseToolOut:
     conn = get_db_connection()
@@ -55,7 +75,7 @@ def update_purchase_tool(purchase_id: int, tool_data: PurchaseToolCreate) -> Pur
     conn.commit()
     conn.close()
 
-    return PurchaseToolOut(ID=purchase_id, **tool_data.dict())
+    return PurchaseToolOut(ID=purchase_id, PROVEEDOR="", **tool_data.dict())
 
 def delete_purchase_tool(purchase_id: int) -> None:
     conn = get_db_connection()

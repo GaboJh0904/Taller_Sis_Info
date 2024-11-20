@@ -12,3 +12,4 @@ class PurchaseDetailCreate(PurchaseDetailBase):
 
 class PurchaseDetailOut(PurchaseDetailBase):
     ID: int  # Include ID when returning a purchase detail
+    MATERIAL: str

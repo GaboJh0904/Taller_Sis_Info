@@ -5,7 +5,17 @@ from app.schemas.purchase_material_detail_schema import PurchaseDetailOut, Purch
 def get_purchase_detail_by_id(detail_id: int) -> PurchaseDetailOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM DETALLE_COMPRA_MATERIAL WHERE ID = %s", (detail_id,))
+    cursor.execute('''
+    SELECT 
+        dcm.*,
+        m.NOMBRE AS MATERIAL
+    FROM 
+        DETALLE_COMPRA_MATERIAL dcm
+    INNER JOIN 
+        MATERIAL m
+    ON 
+        dcm.MATERIAL_ID = m.ID
+    WHERE dcm.ID = %s;''', (detail_id,))
     purchase_detail = cursor.fetchone()
     conn.close()
 
@@ -16,7 +26,17 @@ def get_purchase_detail_by_id(detail_id: int) -> PurchaseDetailOut | None:
 def get_all_purchase_details() -> list[PurchaseDetailOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM DETALLE_COMPRA_MATERIAL")
+    cursor.execute('''
+    SELECT 
+        dcm.*,
+        m.NOMBRE AS MATERIAL
+    FROM 
+        DETALLE_COMPRA_MATERIAL dcm
+    INNER JOIN 
+        MATERIAL m
+    ON 
+        dcm.MATERIAL_ID = m.ID
+    ''')
     purchase_details = cursor.fetchall()
     conn.close()
 
@@ -38,7 +58,7 @@ def create_purchase_detail(detail_data: PurchaseDetailCreate) -> PurchaseDetailO
     detail_id = cursor.lastrowid  # Get the generated ID
     conn.close()
 
-    return PurchaseDetailOut(ID=detail_id, **detail_data.dict())
+    return PurchaseDetailOut(ID=detail_id, MATERIAL="", **detail_data.dict())
 
 def update_purchase_detail(detail_id: int, detail_data: PurchaseDetailCreate) -> PurchaseDetailOut:
     conn = get_db_connection()
@@ -55,7 +75,7 @@ def update_purchase_detail(detail_id: int, detail_data: PurchaseDetailCreate) ->
     conn.commit()
     conn.close()
 
-    return PurchaseDetailOut(ID=detail_id, **detail_data.dict())
+    return PurchaseDetailOut(ID=detail_id, MATERIAL="", **detail_data.dict())
 
 def delete_purchase_detail(detail_id: int) -> None:
     conn = get_db_connection()
@@ -63,3 +83,23 @@ def delete_purchase_detail(detail_id: int) -> None:
     cursor.execute("DELETE FROM DETALLE_COMPRA_MATERIAL WHERE ID = %s", (detail_id,))
     conn.commit()
     conn.close()
+
+def fetch_purchase_details_by_material_purchase_id(compra_material_id: int) -> list[PurchaseDetailOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('''
+    SELECT 
+        dcm.*,
+        m.NOMBRE AS MATERIAL
+    FROM 
+        DETALLE_COMPRA_MATERIAL dcm
+    INNER JOIN 
+        MATERIAL m
+    ON 
+        dcm.MATERIAL_ID = m.ID
+    WHERE 
+        dcm.COMPRA_MATERIAL_ID = %s;''', (compra_material_id,))
+    purchase_details = cursor.fetchall()
+    conn.close()
+
+    return [PurchaseDetailOut(**detail) for detail in purchase_details]

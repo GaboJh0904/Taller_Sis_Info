@@ -5,7 +5,17 @@ from app.schemas.purchase_tool_detail_schema import PurchaseToolDetailOut, Purch
 def get_purchase_tool_detail_by_id(detail_id: int) -> PurchaseToolDetailOut | None:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM DETALLE_COMPRA_HERRAMIENTA WHERE ID = %s", (detail_id,))
+    cursor.execute('''
+    SELECT 
+        dch.*,
+        h.NOMBRE AS HERRAMIENTA
+    FROM 
+        DETALLE_COMPRA_HERRAMIENTA dch
+    INNER JOIN 
+        HERRAMIENTA h
+    ON 
+        dch.HERRAMIENTA_ID = h.ID
+    WHERE dch.ID = %s''', (detail_id,))
     purchase_tool_detail = cursor.fetchone()
     conn.close()
 
@@ -16,7 +26,16 @@ def get_purchase_tool_detail_by_id(detail_id: int) -> PurchaseToolDetailOut | No
 def get_all_purchase_tool_details() -> list[PurchaseToolDetailOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM DETALLE_COMPRA_HERRAMIENTA")
+    cursor.execute('''
+    SELECT 
+        dch.*,
+        h.NOMBRE AS HERRAMIENTA
+    FROM 
+        DETALLE_COMPRA_HERRAMIENTA dch
+    INNER JOIN 
+        HERRAMIENTA h
+    ON 
+        dch.HERRAMIENTA_ID = h.ID;''')
     purchase_tool_details = cursor.fetchall()
     conn.close()
 
@@ -38,7 +57,7 @@ def create_purchase_tool_detail(detail_data: PurchaseToolDetailCreate) -> Purcha
     detail_id = cursor.lastrowid  # Get the generated ID
     conn.close()
 
-    return PurchaseToolDetailOut(ID=detail_id, **detail_data.dict())
+    return PurchaseToolDetailOut(ID=detail_id, HERRAMIENTA="", **detail_data.dict())
 
 def update_purchase_tool_detail(detail_id: int, detail_data: PurchaseToolDetailCreate) -> PurchaseToolDetailOut:
     conn = get_db_connection()
@@ -55,7 +74,7 @@ def update_purchase_tool_detail(detail_id: int, detail_data: PurchaseToolDetailC
     conn.commit()
     conn.close()
 
-    return PurchaseToolDetailOut(ID=detail_id, **detail_data.dict())
+    return PurchaseToolDetailOut(ID=detail_id, HERRAMIENTA="", **detail_data.dict())
 
 def delete_purchase_tool_detail(detail_id: int) -> None:
     conn = get_db_connection()
@@ -63,3 +82,22 @@ def delete_purchase_tool_detail(detail_id: int) -> None:
     cursor.execute("DELETE FROM DETALLE_COMPRA_HERRAMIENTA WHERE ID = %s", (detail_id,))
     conn.commit()
     conn.close()
+
+def fetch_tool_details_by_purchase_id(compra_herramienta_id: int) -> list[PurchaseToolDetailOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('''
+    SELECT 
+        dch.*,
+        h.NOMBRE AS HERRAMIENTA
+    FROM 
+        DETALLE_COMPRA_HERRAMIENTA dch
+    INNER JOIN 
+        HERRAMIENTA h
+    ON 
+        dch.HERRAMIENTA_ID = h.ID
+    WHERE COMPRA_HERRAMIENTA_ID = %s''', (compra_herramienta_id,))
+    tool_details = cursor.fetchall()
+    conn.close()
+
+    return [PurchaseToolDetailOut(**detail) for detail in tool_details]

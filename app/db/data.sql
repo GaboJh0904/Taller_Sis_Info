@@ -10,3 +10,6 @@ INSERT INTO `planificacion_inventario`.`material` (`ID`, `NOMBRE`, `DESCRIPCION`
 
 
 INSERT INTO `planificacion_inventario`.`proveedor` (`ID`, `NOMBRE`, `DIRECCION`, `TELEFONO`) VALUES ('1', 'Proveedor 1', 'La Paz', '12341234');
+
+INSERT INTO `planificacion_inventario`.`encargado_almacen` (`ID`, `NIVEL_ACCESO`, `NOTIFICACIONES_ACTIVAS`, `EMPLEADO_ID`) VALUES ('1', 'admin', '1', '1');
+INSERT INTO `planificacion_inventario`.`almacen` (`ID`, `UBICACION`, `FECHA_ACTUALIZACION`, `ENCARGADO_ALMACEN_ID`) VALUES ('1', 'wer', '2024-01-01', '1');

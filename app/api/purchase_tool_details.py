@@ -37,3 +37,10 @@ def delete_existing_purchase_tool_detail(detail_id: int):
         return {"detail": "Purchase tool detail deleted successfully"}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/by_purchase/{compra_herramienta_id}", response_model=list[PurchaseToolDetailOut])
+def get_tool_details_by_purchase_id(compra_herramienta_id: int):
+    try:
+        return PurchaseToolDetailBL.retrieve_tool_details_by_purchase_id(compra_herramienta_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

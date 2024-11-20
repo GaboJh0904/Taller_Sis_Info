@@ -14,7 +14,7 @@ GET http://localhost:8000/purchase-material-details/
 #Authorization: Bearer {{access_token}}
 
 ### Get a purchase detail by ID
-GET http://localhost:8000/purchase-material-details/1
+GET http://localhost:8000/purchase-material-details/4
 #Authorization: Bearer {{access_token}}
 
 ### Update an existing purchase detail by ID
@@ -31,4 +31,8 @@ Content-Type: application/json
 
 ### Delete a purchase detail by ID
 DELETE http://localhost:8000/purchase-material-details/1
+#Authorization: Bearer {{access_token}}
+
+### Get all purchase details by purchase ID
+GET http://localhost:8000/purchase-material-details/by_purchase/2
 #Authorization: Bearer {{access_token}}
