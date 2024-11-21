@@ -1,7 +1,7 @@
-CREATE SCHEMA `planificacion_inventario` ;
-use planificacion_inventario;
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2024-11-08 15:39:01.279
+
+CREATE SCHEMA planificacion_inventario;
 
 -- tables
 -- Table: ALMACEN
