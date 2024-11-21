@@ -52,9 +52,9 @@ class MaterialAllocationBL:
         delete_material_allocation(material_allocation_id)
         
     @staticmethod
-    def get_material_allocations_with_details_by_project(project_id: int) -> list[MaterialAllocationWithDetailsOut]:
+    def get_material_allocations_with_details_by_project(project_id: int, fase: str) -> list[MaterialAllocationWithDetailsOut]:
         # Obtener las asignaciones de material por proyecto
-        allocations = get_material_allocations_by_project(project_id)
+        allocations = get_material_allocations_by_project(project_id, fase)
         print(allocations)
         results = []
 
@@ -63,6 +63,7 @@ class MaterialAllocationBL:
             flow_material = get_flow_material_by_id(allocation.FLUJO_MATERIAL_ID)
             if not flow_material:
                 raise ValueError(f"Flow material not found for ID {allocation.FLUJO_MATERIAL_ID}")
+            print("El error no es aqui")
 
             material = get_material_by_id(flow_material.MATERIAL_ID)
             if not material:
