@@ -1,0 +1,32 @@
+### Create a new provider
+POST http://localhost:8000/providers/
+Content-Type: application/json
+
+{
+  "NOMBRE": "Proveedor 2",
+  "DIRECCION": "Calle Falsa 123",
+  "TELEFONO": "555-1234"
+}
+
+### Get all providers
+GET http://localhost:8000/providers/
+#Authorization: Bearer {{access_token}}
+
+### Get a provider by ID
+GET http://localhost:8000/providers/1
+#Authorization: Bearer {{access_token}}
+
+### Update an existing provider by ID
+PUT http://localhost:8000/providers/2
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "NOMBRE": "Proveedor Actualizado",
+  "DIRECCION": "Calle Real 456",
+  "TELEFONO": "555-5678"
+}
+
+### Delete a provider by ID
+DELETE http://localhost:8000/providers/2
+#Authorization: Bearer {{access_token}}
