@@ -15,5 +15,12 @@ class Settings:
     # Configuración para el pool de conexiones
     POOL_SIZE = int(os.getenv("POOL_SIZE", 10))
 
+    # Configuración para el correo
+    SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
+    SMTP_USERNAME = os.getenv("SMTP_USERNAME", "pruebacorreos0904@gmail.com")
+    SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "tbew ydau ugqx caby")
+    EMAIL_FROM = os.getenv("EMAIL_FROM", "pruebacorreos@gmail.com")
+
 
 settings = Settings()

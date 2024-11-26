@@ -11,7 +11,7 @@ def get_user_by_username(username: str) -> UserOut | None:
     conn.close()
 
     if user:
-        return UserOut(**user)  # Devolvemos una instancia de UserOut
+        return UserOut(**user)
     return None
 
 
@@ -34,7 +34,7 @@ def get_all_users() -> list[UserOut]:
     users = cursor.fetchall()
     conn.close()
 
-    return [UserOut(**user) for user in users]  # Retornamos una lista de objetos UserOut
+    return [UserOut(**user) for user in users]
 
 
 def create_user(user_data: UserCreate) -> UserOut:
@@ -45,7 +45,7 @@ def create_user(user_data: UserCreate) -> UserOut:
         (user_data.USER_NAME, user_data.EMAIL, user_data.PASSWOR_HASH, user_data.EMPLEADO_ID)
     )
     conn.commit()
-    user_id = cursor.lastrowid  # Obtenemos el ID generado por la base de datos
+    user_id = cursor.lastrowid
     conn.close()
 
     return UserOut(
@@ -80,3 +80,13 @@ def delete_user(user_id: int) -> None:
     cursor.execute("DELETE FROM USUARIO WHERE ID = %s", (user_id,))
     conn.commit()
     conn.close()
+
+
+def get_employee_id_by_user_id(user_id: int) -> int | None:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT EMPLEADO_ID FROM USUARIO WHERE ID = %s", (user_id,))
+    result = cursor.fetchone()
+    conn.close()
+
+    return result[0] if result else None
