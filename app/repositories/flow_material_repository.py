@@ -17,7 +17,7 @@ def get_flow_material_by_id(flow_material_id: int) -> FlowMaterialOut | None:
         ALMACEN A ON FM.ALMACEN_ID = A.ID
     JOIN 
         MATERIAL M ON FM.MATERIAL_ID = M.ID 
-    WHERE ID = %s;
+    WHERE FM.ID = %s;
     ''', (flow_material_id,))
     flow_material = cursor.fetchone()
     conn.close()

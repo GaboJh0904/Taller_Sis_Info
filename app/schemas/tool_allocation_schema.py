@@ -5,6 +5,7 @@ class ToolAllocationBase(BaseModel):
     CANTIDAD: int
     FLUJO_HERRAMIENTA_ID: int
     PROYECTO_ID: int
+    FASE: str
 
 class ToolAllocationCreate(ToolAllocationBase):
     pass  # La creación usa los mismos campos que ToolAllocationBase

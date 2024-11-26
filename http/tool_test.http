@@ -7,7 +7,6 @@ Content-Type: application/json
   "DESCRIPCION": "Taladro de alto rendimiento",
   "CANTIDAD": 10,
   "PRECIO_UNITARIO": 100,
-  "PROVEEDOR_ID": 1,
   "CANTIDAD_MINIMA": 3
 }
 
@@ -16,7 +15,7 @@ GET http://localhost:8000/tools/
 #Authorization: Bearer {{access_token}}
 
 ### Obtener una herramienta por ID
-GET http://localhost:8000/tools/1
+GET http://localhost:8000/tools/2
 #Authorization: Bearer {{access_token}}
 
 ### Actualizar una herramienta existente por ID
@@ -29,7 +28,6 @@ Content-Type: application/json
   "DESCRIPCION": "Taladro de alto rendimiento actualizado",
   "CANTIDAD": 15,
   "PRECIO_UNITARIO": 120,
-  "PROVEEDOR_ID": 1,
   "CANTIDAD_MINIMA": 3
 }
 
