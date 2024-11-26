@@ -5,7 +5,8 @@ from app.business_logic.project_bl import ProjectBL
 from app.schemas.project_schema import (
     ProjectCompletionOut,
     ResourceUtilizationOut,
-    ProjectOut
+    ProjectOut,
+    ProjectCreate
 )
 from app.api.auth import get_current_user
 from app.schemas.user_schema import UserOut
