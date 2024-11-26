@@ -1,22 +1,25 @@
 # app/business_logic/inventory_bl.py
 
-from app.repositories.material_repository import MaterialRepository
-from app.repositories.tool_repository import ToolRepository
-
-from datetime import date
-from app.repositories.flow_material_repository import FlowMaterialRepository
-from app.repositories.flow_tool_repository import FlowToolRepository
-
+from app.repositories.material_repository import get_material_by_id
+from app.repositories.tool_repository import get_tool_by_id
+from app.repositories.flow_material_repository import (
+    get_all_flow_materials,
+    FlowMaterialRepository
+)
+from app.repositories.flow_tool_repository import (
+    get_all_flow_tools,
+    FlowToolRepository
+)
+from datetime import date, timedelta
 
 class InventoryBL:
-
 
     @staticmethod
     def get_stock_levels(item_id: int, item_type: str):
         if item_type == 'material':
-            item = MaterialRepository.get_material(item_id)
+            item = get_material_by_id(item_id)
         elif item_type == 'tool':
-            item = ToolRepository.get_tool(item_id)
+            item = get_tool_by_id(item_id)
         else:
             raise ValueError("Invalid item type. Must be 'material' or 'tool'.")
 
@@ -34,16 +37,15 @@ class InventoryBL:
             "stock_difference": stock_difference,
             "alert": alert
         }
-    
 
     @staticmethod
     def get_inventory_turnover_ratio(item_id: int, item_type: str, start_date: date, end_date: date):
         if item_type == 'material':
             flows = FlowMaterialRepository.get_flows_by_item_and_date_range(item_id, start_date, end_date)
-            item = MaterialRepository.get_material(item_id)
+            item = get_material_by_id(item_id)
         elif item_type == 'tool':
-            flows = FlowToolRepository.get_flows_by_item_and_date_range(item_id, start_date, end_date)
-            item = ToolRepository.get_tool(item_id)
+            flows = FlowToolRepository.get_flows_by_tool_and_date_range(item_id, start_date, end_date)
+            item = get_tool_by_id(item_id)
         else:
             raise ValueError("Invalid item type. Must be 'material' or 'tool'.")
 
@@ -75,49 +77,46 @@ class InventoryBL:
     @staticmethod
     def get_average_replenishment_time(item_id: int, item_type: str):
         if item_type == 'material':
-            flows = FlowMaterialRepository.get_flows_by_item(item_id)
+            flows = get_all_flow_materials()
+            flows = [flow for flow in flows if flow.MATERIAL_ID == item_id]
         elif item_type == 'tool':
-            flows = FlowToolRepository.get_flows_by_item(item_id)
+            flows = get_all_flow_tools()
+            flows = [flow for flow in flows if flow.HERRAMIENTA_ID == item_id]
         else:
             raise ValueError("Invalid item type. Must be 'material' or 'tool'.")
 
         if not flows:
             raise ValueError("No flow records found for the given item.")
 
-        # Sort flows by date
-        flows.sort(key=lambda x: x.FECHA)
-
-        replenishment_times = []
-        last_replenishment_date = None
-
-        for flow in flows:
-            if flow.MOVIMIENTO == 'entrada':
-                if last_replenishment_date:
-                    delta = (flow.FECHA - last_replenishment_date).days
-                    replenishment_times.append(delta)
-                last_replenishment_date = flow.FECHA
-
-        if not replenishment_times:
+        # Filter 'entrada' movements and calculate time differences
+        entrada_flows = [flow for flow in flows if flow.MOVIMIENTO == 'entrada']
+        if len(entrada_flows) < 2:
             average_replenishment_time = 0
         else:
+            entrada_flows.sort(key=lambda x: x.FECHA)
+            replenishment_times = []
+            for i in range(1, len(entrada_flows)):
+                delta = (entrada_flows[i].FECHA - entrada_flows[i - 1].FECHA).days
+                replenishment_times.append(delta)
             average_replenishment_time = sum(replenishment_times) / len(replenishment_times)
+
+        item_name = entrada_flows[0].MATERIAL if item_type == 'material' else entrada_flows[0].HERRAMIENTA
 
         return {
             "item_id": item_id,
-            "item_name": flows[0].item_name,  # Assuming item_name is available
+            "item_name": item_name,
             "average_replenishment_time": average_replenishment_time,
-            "number_of_replenishments": len(replenishment_times)
+            "number_of_replenishments": len(entrada_flows)
         }
-    
 
     @staticmethod
     def get_stockout_rate(item_id: int, item_type: str, start_date: date, end_date: date):
         if item_type == 'material':
             flows = FlowMaterialRepository.get_flows_by_item_and_date_range(item_id, start_date, end_date)
-            item = MaterialRepository.get_material(item_id)
+            item = get_material_by_id(item_id)
         elif item_type == 'tool':
-            flows = FlowToolRepository.get_flows_by_item_and_date_range(item_id, start_date, end_date)
-            item = ToolRepository.get_tool(item_id)
+            flows = FlowToolRepository.get_flows_by_tool_and_date_range(item_id, start_date, end_date)
+            item = get_tool_by_id(item_id)
         else:
             raise ValueError("Invalid item type. Must be 'material' or 'tool'.")
 
@@ -125,28 +124,25 @@ class InventoryBL:
             raise ValueError(f"{item_type.capitalize()} with ID {item_id} not found.")
 
         # Build daily stock levels
-        date_range = (end_date - start_date).days + 1
-        stock_levels = [0] * date_range  # Initialize stock levels to zero
+        date_list = [start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)]
+        stock_levels = {}
+        cumulative_stock = item.CANTIDAD
 
-        # Assume we have a function to get initial stock level at start_date
-        initial_stock = item.CANTIDAD  # Simplified assumption
-        stock_levels[0] = initial_stock
+        flows.sort(key=lambda x: x.FECHA)
 
-        # Update stock levels based on flows
-        for flow in flows:
-            index = (flow.FECHA.date() - start_date).days
-            if flow.MOVIMIENTO == 'entrada':
-                stock_levels[index] += flow.CANTIDAD
-            elif flow.MOVIMIENTO == 'salida':
-                stock_levels[index] -= flow.CANTIDAD
-
-        # Calculate cumulative stock levels
-        for i in range(1, date_range):
-            stock_levels[i] += stock_levels[i - 1]
+        for current_date in date_list:
+            # Update stock based on flows
+            for flow in flows:
+                if flow.FECHA.date() == current_date:
+                    if flow.MOVIMIENTO == 'entrada':
+                        cumulative_stock += flow.CANTIDAD
+                    elif flow.MOVIMIENTO == 'salida':
+                        cumulative_stock -= flow.CANTIDAD
+            stock_levels[current_date] = cumulative_stock
 
         # Count stockout days
-        stockout_days = sum(1 for level in stock_levels if level <= 0)
-        total_days = date_range
+        stockout_days = sum(1 for level in stock_levels.values() if level <= 0)
+        total_days = len(date_list)
 
         stockout_rate = (stockout_days / total_days) * 100
 

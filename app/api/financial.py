@@ -2,10 +2,18 @@
 
 from fastapi import APIRouter, HTTPException, Depends
 from app.business_logic.financial_bl import FinancialBL
-from app.schemas.financial_schema import BudgetVarianceOut, SpendingTrendOut, ExpenseBreakdownOut
+from app.schemas.financial_schema import (
+    BudgetVarianceOut,
+    SpendingTrendOut,
+    ExpenseBreakdownOut
+)
 from app.api.auth import oauth2_scheme, get_current_user
-4
-router = APIRouter()
+
+router = APIRouter(
+    prefix="/financial",
+    tags=["Financial"],
+    dependencies=[Depends(oauth2_scheme)]
+)
 
 @router.get("/projects/{project_id}/budget-variance", response_model=BudgetVarianceOut)
 def get_budget_variance(
@@ -17,7 +25,6 @@ def get_budget_variance(
         return FinancialBL.get_budget_variance(project_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
 
 @router.get("/projects/{project_id}/spending-trend", response_model=SpendingTrendOut)
 def get_spending_trend(
