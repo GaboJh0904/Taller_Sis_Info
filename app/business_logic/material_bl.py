@@ -1,6 +1,6 @@
 # app/services/material_bl.py
 from app.repositories.material_repository import (
-    create_material, get_material_by_id, get_all_materials, update_material, delete_material
+    create_material, get_material_by_id, get_all_materials, update_material, delete_material, get_low_stock_materials
 )
 from app.schemas.material_schema import MaterialCreate, MaterialOut
 
@@ -34,3 +34,7 @@ class MaterialBL:
         if not material:
             raise ValueError("Material not found")
         delete_material(material_id)
+
+    @staticmethod
+    def get_low_stock_notifications() -> list[MaterialOut]:
+        return get_low_stock_materials()
