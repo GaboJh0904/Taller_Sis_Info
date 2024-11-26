@@ -38,6 +38,12 @@ app.include_router(inventory.router)
 app.include_router(projects.router)
 app.include_router(financial.router)
 
+
+from fastapi import FastAPI, WebSocket, Depends
+from app.db.connection import get_connection
+import asyncio
+
+
 connected_clients = []
 
 @app.websocket("/ws/material")

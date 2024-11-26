@@ -2,6 +2,7 @@ mysql-connector-python~=8.3.0
 fastapi~=0.112.0
 passlib~=1.7.4
 
+aiomysql
 bcrypt==3.2.2
 python-multipart
 python-jose~=3.3.0
