@@ -92,3 +92,19 @@ def delete_flow_material(flow_material_id: int) -> None:
     cursor.execute("DELETE FROM FLUJO_MATERIAL WHERE ID = %s", (flow_material_id,))
     conn.commit()
     conn.close()
+
+from app.schemas.flow_material_schema import FlowMaterialOut
+from datetime import date
+
+class FlowMaterialRepository:
+    @staticmethod
+    def get_flows_by_item_and_date_range(item_id: int, start_date: date, end_date: date):
+        connection = get_db_connection()
+        with connection.cursor() as cursor:
+            sql = """
+                SELECT * FROM FLUJO_MATERIAL
+                WHERE MATERIAL_ID = %s AND FECHA BETWEEN %s AND %s
+            """
+            cursor.execute(sql, (item_id, start_date, end_date))
+            rows = cursor.fetchall()
+            return [FlowMaterialOut(**row) for row in rows] 

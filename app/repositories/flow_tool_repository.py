@@ -93,3 +93,19 @@ def delete_flow_tool(flow_tool_id: int) -> None:
     cursor.execute("DELETE FROM FLUJO_HERRAMIENTA WHERE ID = %s", (flow_tool_id,))
     conn.commit()
     conn.close()
+
+
+from datetime import date
+
+class FlowToolRepository:
+    @staticmethod
+    def get_flows_by_tool_and_date_range(item_id: int, start_date: date, end_date: date):
+        connection = get_db_connection()
+        with connection.cursor() as cursor:
+            sql = """
+                SELECT * FROM FLUJO_HERRAMIENTA
+                WHERE HERRAMIENTA_ID = %s AND FECHA BETWEEN %s AND %s
+            """
+            cursor.execute(sql, (item_id, start_date, end_date))
+            rows = cursor.fetchall()
+            return [FlowToolOut(**row) for row in rows] 
