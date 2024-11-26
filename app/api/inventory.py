@@ -1,6 +1,6 @@
 # app/api/inventory.py
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from app.business_logic.inventory_bl import InventoryBL
 from app.schemas.inventory_schema import (
     StockLevelOut,
@@ -8,23 +8,22 @@ from app.schemas.inventory_schema import (
     ReplenishmentTimeOut,
     StockoutRateOut
 )
-from app.api.auth import oauth2_scheme, get_current_user
+from app.api.auth import get_current_user  # Import get_current_user
+from app.schemas.user_schema import UserOut
 from datetime import date
 
 router = APIRouter(
     prefix="/inventory",
-    tags=["Inventory"],
-    dependencies=[Depends(oauth2_scheme)]
+    tags=["Inventory"]
 )
 
 @router.get("/stock-levels", response_model=StockLevelOut)
 def get_stock_levels(
     item_id: int,
     item_type: str,
-    token: str = Depends(oauth2_scheme)
+    current_user: UserOut = Depends(get_current_user)  # Require authentication
 ):
     try:
-        current_user = get_current_user(token)
         return InventoryBL.get_stock_levels(item_id, item_type)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -35,10 +34,9 @@ def get_inventory_turnover_ratio(
     item_type: str,
     start_date: date,
     end_date: date,
-    token: str = Depends(oauth2_scheme)
+    current_user: UserOut = Depends(get_current_user)
 ):
     try:
-        current_user = get_current_user(token)
         return InventoryBL.get_inventory_turnover_ratio(item_id, item_type, start_date, end_date)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -47,10 +45,9 @@ def get_inventory_turnover_ratio(
 def get_average_replenishment_time(
     item_id: int,
     item_type: str,
-    token: str = Depends(oauth2_scheme)
+    current_user: UserOut = Depends(get_current_user)
 ):
     try:
-        current_user = get_current_user(token)
         return InventoryBL.get_average_replenishment_time(item_id, item_type)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -61,10 +58,9 @@ def get_stockout_rate(
     item_type: str,
     start_date: date,
     end_date: date,
-    token: str = Depends(oauth2_scheme)
+    current_user: UserOut = Depends(get_current_user)
 ):
     try:
-        current_user = get_current_user(token)
         return InventoryBL.get_stockout_rate(item_id, item_type, start_date, end_date)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

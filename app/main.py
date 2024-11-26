@@ -37,7 +37,6 @@ app.include_router(used_material.router, prefix="/used-materials")
 app.include_router(inventory.router)
 app.include_router(projects.router)
 app.include_router(financial.router)
-app.include_router(auth.router, prefix="/auth")
 
 
 
