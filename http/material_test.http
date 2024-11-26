@@ -35,3 +35,7 @@ Content-Type: application/json
 ### Eliminar un material por ID
 DELETE http://localhost:8000/materials/2
 #Authorization: Bearer {{access_token}}
+
+### obtener materiales con bajo stock
+GET http://localhost:8000/materials/notifications/low-stock
+#Authorization: Bearer {{access_token}}

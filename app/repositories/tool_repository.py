@@ -78,3 +78,13 @@ def delete_tool(tool_id: int) -> None:
     cursor.execute("DELETE FROM HERRAMIENTA WHERE ID = %s", (tool_id,))
     conn.commit()
     conn.close()
+
+
+def get_low_stock_tools() -> list[ToolOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM HERRAMIENTA WHERE CANTIDAD <= CANTIDAD_MINIMA")
+    tools = cursor.fetchall()
+    conn.close()
+
+    return [ToolOut(**tool) for tool in tools]

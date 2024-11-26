@@ -1,6 +1,6 @@
 # app/services/tool_bl.py
 from app.repositories.tool_repository import (
-    create_tool, get_tool_by_id, get_all_tools, update_tool, delete_tool
+    create_tool, get_tool_by_id, get_all_tools, update_tool, delete_tool, get_low_stock_tools
 )
 from app.schemas.tool_schema import ToolCreate, ToolOut
 
@@ -34,3 +34,8 @@ class ToolBL:
         if not tool:
             raise ValueError("Tool not found")
         delete_tool(tool_id)
+
+    @staticmethod
+    def get_low_stock_notifications() -> list[ToolOut]:
+        return get_low_stock_tools()
+
