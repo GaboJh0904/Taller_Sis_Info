@@ -2,7 +2,11 @@
 from fastapi import FastAPI
 from app.api import auth, users, projects, tools, materials, flow_tools, flow_materials
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, users, projects, tools, materials, flow_tools, flow_materials, surplus_project, material_allocation, tool_allocation, used_material
+
+from app.api import (auth, users, projects, tools, materials, flow_tools, flow_materials, surplus_project,
+                     material_allocation, tool_allocation, used_material, purchases_material, purchase_material_details,
+                     purchase_tools, purchase_tool_details, providers)
+
 from app.api import financial, inventory, projects
 app = FastAPI()
 
