@@ -34,3 +34,7 @@ Content-Type: application/json
 ### Eliminar una herramienta por ID
 DELETE http://localhost:8000/tools/2
 #Authorization: Bearer {{access_token}}
+
+### obtener herramientas con bajo stock
+GET http://localhost:8000/tools/notifications/low-stock
+#Authorization: Bearer {{access_token}}
