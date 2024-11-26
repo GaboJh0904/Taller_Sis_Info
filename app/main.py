@@ -23,6 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 app.include_router(auth.router)
 app.include_router(users.router, prefix="/users")
 app.include_router(projects.router, prefix="/projects")
@@ -34,6 +35,13 @@ app.include_router(surplus_project.router, prefix="/surpluses")
 app.include_router(material_allocation.router, prefix="/material-allocations")
 app.include_router(tool_allocation.router, prefix="/tool-allocations")
 app.include_router(used_material.router, prefix="/used-materials")
+app.include_router(purchases_material.router, prefix="/purchases-materials")
+app.include_router(purchase_material_details.router, prefix="/purchase-material-details")
+app.include_router(purchase_tools.router, prefix="/purchase-tools")
+app.include_router(purchase_tool_details.router, prefix="/purchase-tool-details")
+app.include_router(providers.router, prefix="/providers")
+
+
 app.include_router(inventory.router)
 app.include_router(projects.router)
 app.include_router(financial.router)
