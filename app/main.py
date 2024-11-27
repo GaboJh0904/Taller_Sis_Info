@@ -1,7 +1,11 @@
 # app/main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 from app.api import auth, users, projects, tools, materials, flow_tools, flow_materials
 from fastapi.middleware.cors import CORSMiddleware
+import logging
+import traceback
 
 from app.api import (auth, users, projects, tools, materials, flow_tools, flow_materials, surplus_project,
                      material_allocation, tool_allocation, used_material, purchases_material, purchase_material_details,
@@ -9,6 +13,37 @@ from app.api import (auth, users, projects, tools, materials, flow_tools, flow_m
 
 from app.api import financial, inventory, projects
 app = FastAPI()
+
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    # Get stack trace and request details
+    error_trace = traceback.format_exc()
+    try:
+        # Attempt to log the body of the request for debugging
+        body = await request.json()
+    except Exception as e:
+        body = {"error": f"Unable to parse body: {e}"}
+
+    logging.error(f"Validation error:\n{exc}\nRequest body: {body}\nTraceback:\n{error_trace}")
+    
+    return JSONResponse(
+        status_code=422,
+        content={
+            "detail": exc.errors(),
+            "body": body,  # Include the invalid body for debugging
+        },
+    )
+
+# @app.exception_handler(Exception)
+# async def custom_exception_handler(request: Request, exc: Exception):
+#     # Print the stack trace
+#     traceback.print_exc()
+#     return JSONResponse(
+#         status_code=500,
+#         content={"detail": str(exc)},
+#     )
 
 origins = [
     "http://localhost:5173",

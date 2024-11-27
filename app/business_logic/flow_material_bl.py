@@ -25,9 +25,9 @@ class FlowMaterialBL:
             raise ValueError("Invalid movement type")
 
         # 3. Actualizar la cantidad en la tabla MATERIAL
-        update_material_quantity(flow_material_data.MATERIAL_ID, new_quantity)
 
-        # 4. Crear el flujo de material en la tabla FLUJO_MATERIAL
+        update_material_quantity(flow_material_data.MATERIAL_ID, new_quantity)
+        
         return create_flow_material(flow_material_data)
 
 
