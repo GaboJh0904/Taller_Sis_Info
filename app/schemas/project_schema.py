@@ -9,7 +9,7 @@ class ProjectCreate(BaseModel):
     DESCRIPCION: str
     CRONOGRAMA: str
     PRESUPUESTO_ASIGNADO: float
-    METAS_FINANCIERAS: str
+    METAS_FINANCIERAS: float #NO STR LPM
     ESTADO: str
     PRIORIDAD: str
     FECHA_INICIO: date
