@@ -10,7 +10,7 @@ class Settings:
     DB_PORT = os.getenv("DB_PORT", 3306)
     DB_USER = os.getenv("DB_USER", "root")
 
-    DB_PASSWORD = os.getenv("DB_PASSWORD", "9207245")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "1559PPL")
 
 
     DB_NAME = os.getenv("DB_NAME", "planificacion_inventario")
