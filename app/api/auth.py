@@ -53,18 +53,28 @@ def authenticate_user(username: str, password: str):
     return user
 
 
-def get_current_user(required_role: str, token: str = Depends(oauth2_scheme)):
+def get_current_user(required_role: str = None, token: str = Depends(oauth2_scheme)):
     payload = verify_token(token, credentials_exception=HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Invalid authentication credentials",
     ))
     role = payload.get("role")
-    if role and role != required_role:
+    if required_role and required_role != '' and role != required_role:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="You don't have enough permissions",
         )
     return get_user_by_username(payload.get("sub"))
+
+
+
+from functools import partial
+
+get_admin_user = partial(get_current_user, required_role="admin")
+get_project_manager_user = partial(get_current_user, required_role="project_manager")
+get_finance_manager_user = partial(get_current_user, required_role="finance_manager")
+get_employee_user = partial(get_current_user, required_role="employee")
+
 
 
 @router.post("/token", response_model=Token)

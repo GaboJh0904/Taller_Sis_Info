@@ -51,13 +51,14 @@ def get_all_flow_materials() -> list[FlowMaterialOut]:
 def create_flow_material(flow_material_data: FlowMaterialCreate) -> FlowMaterialOut:
     conn = get_db_connection()
     cursor = conn.cursor()
+
     cursor.execute(
         """INSERT INTO FLUJO_MATERIAL 
            (MATERIAL_ID, ALMACEN_ID, CANTIDAD, MOVIMIENTO, FECHA)
            VALUES (%s, %s, %s, %s, %s)""",
         (
             flow_material_data.MATERIAL_ID, flow_material_data.ALMACEN_ID, flow_material_data.CANTIDAD,
-            flow_material_data.MOVIMIENTO, flow_material_data.FECHA
+            str(flow_material_data.MOVIMIENTO.value), flow_material_data.FECHA
         )
     )
     conn.commit()
@@ -70,13 +71,15 @@ def create_flow_material(flow_material_data: FlowMaterialCreate) -> FlowMaterial
 def update_flow_material(flow_material_id: int, flow_material_data: FlowMaterialCreate) -> FlowMaterialOut:
     conn = get_db_connection()
     cursor = conn.cursor()
+
+    
     cursor.execute(
         """UPDATE FLUJO_MATERIAL SET 
            MATERIAL_ID = %s, ALMACEN_ID = %s, CANTIDAD = %s, MOVIMIENTO = %s, FECHA = %s 
            WHERE ID = %s""",
         (
             flow_material_data.MATERIAL_ID, flow_material_data.ALMACEN_ID, flow_material_data.CANTIDAD,
-            flow_material_data.MOVIMIENTO, flow_material_data.FECHA,
+            str(flow_material_data.MOVIMIENTO.value), flow_material_data.FECHA,
             flow_material_id
         )
     )
@@ -92,6 +95,33 @@ def delete_flow_material(flow_material_id: int) -> None:
     cursor.execute("DELETE FROM FLUJO_MATERIAL WHERE ID = %s", (flow_material_id,))
     conn.commit()
     conn.close()
+
+def get_encargado_almacen(almacen_id: int) -> dict:
+    """
+    Obtiene el correo y nombre del encargado del almacén asociado a un ALMACEN_ID.
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('''
+    SELECT
+        U.USER_NAME AS NOMBRE,
+        U.EMAIL AS CORREO
+    FROM
+        USUARIO U
+    JOIN
+        EMPLEADO E ON U.EMPLEADO_ID = E.ID
+    JOIN
+        ENCARGADO_ALMACEN EA ON EA.EMPLEADO_ID = E.ID
+    JOIN
+        ALMACEN A ON EA.ID = A.ENCARGADO_ALMACEN_ID
+    WHERE
+        A.ID = %s;
+    ''', (almacen_id,))
+    encargado = cursor.fetchone()
+    conn.close()
+    if not encargado:
+        raise ValueError(f"Encargado del almacén no encontrado para ALMACEN_ID: {almacen_id}.")
+    return encargado
 
 from app.schemas.flow_material_schema import FlowMaterialOut
 from datetime import date

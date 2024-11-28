@@ -38,14 +38,16 @@ def get_user_role(user_id: int) -> str:
 
     employee_id = employee_result["EMPLEADO_ID"]
 
-    # Verificar roles específicos
-    cursor.execute("SELECT 1 FROM ENCARGADO_ALMACEN WHERE EMPLEADO_ID = %s", (employee_id,))
-    if cursor.fetchone():
-        return "almacen_manager"
 
     cursor.execute("SELECT 1 FROM GERENTE_INVENTARIO WHERE USUARIO_ID = %s", (user_id,))
     if cursor.fetchone():
         return "admin"
+    
+    # Verificar roles específicos
+    cursor.execute("SELECT 1 FROM ENCARGADO_ALMACEN WHERE EMPLEADO_ID = %s", (employee_id,))
+    if cursor.fetchone():
+        return "almacen_manager"
+    
 
     cursor.execute("SELECT 1 FROM ENCARGADO_PROYECTO WHERE USUARIO_ID = %s", (user_id,))
     if cursor.fetchone():
