@@ -12,7 +12,7 @@ class StoreBL:
 
     @staticmethod
     def create_new_store(store_data: AlmacenCreate) -> AlmacenOut:
-        if not store_data.ubicacion.strip():
+        if not store_data.UBICACION.strip():
             raise ValueError("La ubicación del almacén no puede estar vacía")
 
         # Crear el almacén en la base de datos

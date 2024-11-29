@@ -10,10 +10,7 @@ from app.schemas.financial_schema import (
 from app.api.auth import get_current_user
 from app.schemas.user_schema import UserOut
 
-router = APIRouter(
-    prefix="/financial",
-    tags=["Financial"]
-)
+router = APIRouter()
 
 @router.get("/projects/{project_id}/budget-variance", response_model=BudgetVarianceOut)
 def get_budget_variance(

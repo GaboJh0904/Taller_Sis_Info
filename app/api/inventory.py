@@ -12,10 +12,7 @@ from app.api.auth import get_current_user  # Import get_current_user
 from app.schemas.user_schema import UserOut
 from datetime import date
 
-router = APIRouter(
-    prefix="/inventory",
-    tags=["Inventory"]
-)
+router = APIRouter()
 
 @router.get("/stock-levels", response_model=StockLevelOut)
 def get_stock_levels(

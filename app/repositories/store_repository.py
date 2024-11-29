@@ -22,6 +22,7 @@ def get_all_almacenes() -> list[AlmacenOut]:
     almacenes = cursor.fetchall()
     conn.close()
 
+    print([almacen for almacen in almacenes])
     return [AlmacenOut(**almacen) for almacen in almacenes]
 
 
@@ -32,16 +33,15 @@ def create_almacen(almacen_data: AlmacenCreate) -> AlmacenOut:
         """INSERT INTO ALMACEN (UBICACION, FECHA_ACTUALIZACION, ENCARGADO_ALMACEN_ID) 
            VALUES (%s, %s, %s)""",
         (
-            almacen_data.ubicacion,
-            almacen_data.fecha_actualizacion,
-            almacen_data.encargado_almacen_id
+            almacen_data.UBICACION,
+            almacen_data.FECHA_ACTUALIZACION,
+            almacen_data.ENCARGADO_ALMACEN_ID
         )
     )
     conn.commit()
     almacen_id = cursor.lastrowid  
     conn.close()
-
-    return AlmacenOut(id=almacen_id, **almacen_data.dict())
+    return AlmacenOut(ID=almacen_id, **almacen_data.dict())
 
 
 def update_almacen(almacen_id: int, almacen_data: AlmacenCreate) -> AlmacenOut:
@@ -52,16 +52,16 @@ def update_almacen(almacen_id: int, almacen_data: AlmacenCreate) -> AlmacenOut:
            UBICACION = %s, FECHA_ACTUALIZACION = %s, ENCARGADO_ALMACEN_ID = %s 
            WHERE ID = %s""",
         (
-            almacen_data.ubicacion,
-            almacen_data.fecha_actualizacion,
-            almacen_data.encargado_almacen_id,
+            almacen_data.UBICACION,
+            almacen_data.FECHA_ACTUALIZACION,
+            almacen_data.ENCARGADO_ALMACEN_ID,
             almacen_id
         )
     )
     conn.commit()
     conn.close()
 
-    return AlmacenOut(id=almacen_id, **almacen_data.dict())
+    return AlmacenOut(ID=almacen_id, **almacen_data.dict())
 
 
 def delete_almacen(almacen_id: int) -> None:

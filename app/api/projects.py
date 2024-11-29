@@ -13,9 +13,7 @@ from app.api.auth import (get_current_user, get_admin_user, get_employee_user,
   
 from app.schemas.user_schema import UserOut
 
-router = APIRouter(
-    prefix="/projects",
-)
+router = APIRouter()
 
 @router.get("/{project_id}/completion-percentage", response_model=ProjectCompletionOut)
 def get_project_completion_percentage(

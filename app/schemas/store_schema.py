@@ -2,15 +2,15 @@ from pydantic import BaseModel
 from datetime import date
 
 class AlmacenBase(BaseModel):
-    ubicacion: str
-    fecha_actualizacion: date
-    encargado_almacen_id: int
+    UBICACION: str
+    FECHA_ACTUALIZACION: date
+    ENCARGADO_ALMACEN_ID: int
 
 class AlmacenCreate(AlmacenBase):
     pass
 
 class AlmacenOut(AlmacenBase):
-    id: int
+    ID: int
 
     class Config:
-        orm_mode = True
+        from_atributes = True
