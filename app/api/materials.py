@@ -5,7 +5,7 @@ from app.business_logic.store_bl import StoreBL
 router = APIRouter()
 
 @router.post("/", response_model=AlmacenOut)
-def create_new_store(store_data: AlmacenCreate):
+def create_new_store(store_data: AlmacenCreate): 
     """
     Crea un nuevo almacén.
     """

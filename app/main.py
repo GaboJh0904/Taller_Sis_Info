@@ -30,6 +30,7 @@ from app.api import (
     providers,
     financial,
     inventory,
+    management,
 )
 from app.db.connection import get_connection
 
@@ -111,6 +112,7 @@ app.include_router(stores.router, prefix="/stores")
 
 app.include_router(inventory.router, prefix="/inventory")
 app.include_router(financial.router, prefix="/financial")
+app.include_router(management.router, prefix="/management")
 
 # WebSocket management
 connected_clients: List[WebSocket] = []
