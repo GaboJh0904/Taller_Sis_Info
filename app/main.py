@@ -5,7 +5,7 @@ import logging
 import traceback
 from typing import List
 
-from fastapi import FastAPI, Request, WebSocket, Depends
+from fastapi import FastAPI, Request, WebSocket, Depends, WebSocketDisconnect
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -116,6 +116,8 @@ app.include_router(management.router, prefix="/management")
     
 # WebSocket management
 connected_clients: List[WebSocket] = []
+# Lista global para manejar clientes conectados
+connected_clients_tools = []
 
 @app.websocket("/ws/material")
 async def websocket_material(websocket: WebSocket):
