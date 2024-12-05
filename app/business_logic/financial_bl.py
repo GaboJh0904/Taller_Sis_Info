@@ -69,7 +69,7 @@ class FinancialBL:
             material = get_material_by_id(flow_material.MATERIAL_ID)
             if material:
                 amount = material.PRECIO_UNITARIO * allocation.CANTIDAD
-                date_key = flow_material.FECHA.date().strftime("%Y-%m-%d")
+                date_key = flow_material.FECHA.strftime("%Y-%m-%d")
                 spending_over_time[date_key] += float(amount)
 
         for allocation in tool_allocations:
@@ -79,7 +79,7 @@ class FinancialBL:
             tool = get_tool_by_id(flow_tool.HERRAMIENTA_ID)
             if tool:
                 amount = tool.PRECIO_UNITARIO * allocation.CANTIDAD
-                date_key = flow_tool.FECHA.date().strftime("%Y-%m-%d")
+                date_key = flow_tool.FECHA.strftime("%Y-%m-%d")
                 spending_over_time[date_key] += float(amount)
 
         spending_over_time_list = [
@@ -99,9 +99,14 @@ class FinancialBL:
         if not project:
             raise ValueError(f"Project with ID {project_id} not found.")
 
+
         material_allocations = get_material_allocations_by_project(project_id)
 
         material_spending = defaultdict(float)
+
+
+        total = 0
+
 
         for allocation in material_allocations:
             flow_material = get_flow_material_by_id(allocation.FLUJO_MATERIAL_ID)
@@ -112,16 +117,20 @@ class FinancialBL:
                 amount = material.PRECIO_UNITARIO * allocation.CANTIDAD
                 material_name = material.NOMBRE  
                 material_spending[material_name] += float(amount)
+                total +=  float(amount)
 
         material_spending_list = [
-            {"material": material, "total_spent": amount}
+            {"category": material, "total_spent": amount}
             for material, amount in sorted(material_spending.items())
         ]
+
+        print(material_spending_list)
 
         return {
             "project_id": project.ID,
             "project_name": project.NOMBRE,
-            "material_spending": material_spending_list
+            "expenses": material_spending_list,
+            "total_expense": total
         }
 
 
@@ -135,6 +144,8 @@ class FinancialBL:
 
         tool_spending = defaultdict(float)
 
+        total = 0
+
         for allocation in tool_allocations:
             flow_tool = get_flow_tool_by_id(allocation.FLUJO_HERRAMIENTA_ID)
             if not flow_tool:
@@ -144,14 +155,16 @@ class FinancialBL:
                 amount = tool.PRECIO_UNITARIO * allocation.CANTIDAD
                 tool_name = tool.NOMBRE  
                 tool_spending[tool_name] += float(amount)
+                total += float(amount)
 
         tool_spending_list = [
-            {"tool": tool, "total_spent": amount}
+            {"category": tool, "total_spent": amount}
             for tool, amount in sorted(tool_spending.items())
         ]
 
         return {
             "project_id": project.ID,
             "project_name": project.NOMBRE,
-            "tool_spending": tool_spending_list
+            "expenses": tool_spending_list,
+            "total_expense": total
         }

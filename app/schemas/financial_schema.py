@@ -21,7 +21,7 @@ class SpendingTrendOut(BaseModel):
 
 class ExpenseCategory(BaseModel):
     category: str
-    amount: float
+    total_spent: float
 
 class ExpenseBreakdownOut(BaseModel):
     project_id: int

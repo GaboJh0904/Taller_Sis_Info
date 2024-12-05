@@ -22,7 +22,7 @@ def get_all_almacenes() -> list[AlmacenOut]:
     almacenes = cursor.fetchall()
     conn.close()
 
-    print([almacen for almacen in almacenes])
+    # print([almacen for almacen in almacenes])
     return [AlmacenOut(**almacen) for almacen in almacenes]
 
 

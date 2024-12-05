@@ -59,7 +59,7 @@ def delete_material_allocation(material_allocation_id: int) -> None:
 def get_material_allocations_by_project(project_id: int, fase: str = None) -> list[MaterialAllocationOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    print(f"Fetching allocations for project ID: {project_id}")
+    # print(f"Fetching allocations for project ID: {project_id}")
 
     if not fase:
         cursor.execute("SELECT * FROM ASIGNACION_MATERIAL WHERE PROYECTO_ID = %s", (project_id,))

@@ -46,7 +46,7 @@ def create_purchase_material(purchase_data: PurchaseMaterialCreate) -> PurchaseM
     cursor = conn.cursor()
 
     
-    print("A ver el debugging", purchase_data, sep = " ")
+    # print("A ver el debugging", purchase_data, sep = " ")
     cursor.execute(
         """INSERT INTO COMPRA_MATERIAL 
            (COSTO_TOTAL, FECHA, PROVEEDOR_ID, DETALLE)
