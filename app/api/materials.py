@@ -37,3 +37,7 @@ def delete_existing_material(material_id: int):
         return {"detail": "Material deleted successfully"}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/notifications/low-stock", response_model=list[MaterialOut])
+def get_low_stock_notifications():
+    return MaterialBL.get_low_stock_notifications()

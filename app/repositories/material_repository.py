@@ -78,3 +78,13 @@ def delete_material(material_id: int) -> None:
     cursor.execute("DELETE FROM MATERIAL WHERE ID = %s", (material_id,))
     conn.commit()
     conn.close()
+
+
+def get_low_stock_materials() -> list[MaterialOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM MATERIAL WHERE CANTIDAD <= CANTIDAD_MINIMA")
+    materials = cursor.fetchall()
+    conn.close()
+
+    return [MaterialOut(**material) for material in materials]
