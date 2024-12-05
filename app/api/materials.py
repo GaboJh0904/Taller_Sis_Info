@@ -1,57 +1,39 @@
+# app/api/materials.py
 from fastapi import APIRouter, HTTPException
-from app.schemas.store_schema import AlmacenCreate, AlmacenOut
-from app.business_logic.store_bl import StoreBL
+from app.schemas.material_schema import MaterialCreate, MaterialOut
+from app.business_logic.material_bl import MaterialBL
 
 router = APIRouter()
 
-@router.post("/", response_model=AlmacenOut)
-def create_new_store(store_data: AlmacenCreate): 
-    """
-    Crea un nuevo almacén.
-    """
+@router.post("/", response_model=MaterialOut)
+def create_new_material(material_data: MaterialCreate):
     try:
-        return StoreBL.create_new_store(store_data)
+        return MaterialBL.create_new_material(material_data)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-
-@router.get("/{store_id}", response_model=AlmacenOut)
-def get_store(store_id: int):
-    """
-    Obtiene un almacén por su ID.
-    """
+@router.get("/{material_id}", response_model=MaterialOut)
+def get_material(material_id: int):
     try:
-        return StoreBL.get_store_by_id(store_id)
+        return MaterialBL.get_material(material_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
+@router.get("/", response_model=list[MaterialOut])
+def list_all_materials():
+    return MaterialBL.get_all_materials()
 
-@router.get("/", response_model=list[AlmacenOut])
-def list_all_stores():
-    """
-    Obtiene todos los almacenes.
-    """
-    return StoreBL.get_all_stores()
-
-
-@router.put("/{store_id}", response_model=AlmacenOut)
-def update_existing_store(store_id: int, store_data: AlmacenCreate):
-    """
-    Actualiza un almacén existente.
-    """
+@router.put("/{material_id}", response_model=MaterialOut)
+def update_existing_material(material_id: int, material_data: MaterialCreate):
     try:
-        return StoreBL.update_existing_store(store_id, store_data)
+        return MaterialBL.update_existing_material(material_id, material_data)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-
-@router.delete("/{store_id}")
-def delete_existing_store(store_id: int):
-    """
-    Elimina un almacén existente.
-    """
+@router.delete("/{material_id}")
+def delete_existing_material(material_id: int):
     try:
-        StoreBL.delete_store(store_id)
-        return {"detail": "Store deleted successfully"}
+        MaterialBL.delete_material(material_id)
+        return {"detail": "Material deleted successfully"}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
