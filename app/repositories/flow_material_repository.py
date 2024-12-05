@@ -51,13 +51,14 @@ def get_all_flow_materials() -> list[FlowMaterialOut]:
 def create_flow_material(flow_material_data: FlowMaterialCreate) -> FlowMaterialOut:
     conn = get_db_connection()
     cursor = conn.cursor()
+
     cursor.execute(
         """INSERT INTO FLUJO_MATERIAL 
            (MATERIAL_ID, ALMACEN_ID, CANTIDAD, MOVIMIENTO, FECHA)
            VALUES (%s, %s, %s, %s, %s)""",
         (
             flow_material_data.MATERIAL_ID, flow_material_data.ALMACEN_ID, flow_material_data.CANTIDAD,
-            flow_material_data.MOVIMIENTO, flow_material_data.FECHA
+            str(flow_material_data.MOVIMIENTO.value), flow_material_data.FECHA
         )
     )
     conn.commit()
@@ -70,13 +71,15 @@ def create_flow_material(flow_material_data: FlowMaterialCreate) -> FlowMaterial
 def update_flow_material(flow_material_id: int, flow_material_data: FlowMaterialCreate) -> FlowMaterialOut:
     conn = get_db_connection()
     cursor = conn.cursor()
+
+    
     cursor.execute(
         """UPDATE FLUJO_MATERIAL SET 
            MATERIAL_ID = %s, ALMACEN_ID = %s, CANTIDAD = %s, MOVIMIENTO = %s, FECHA = %s 
            WHERE ID = %s""",
         (
             flow_material_data.MATERIAL_ID, flow_material_data.ALMACEN_ID, flow_material_data.CANTIDAD,
-            flow_material_data.MOVIMIENTO, flow_material_data.FECHA,
+            str(flow_material_data.MOVIMIENTO.value), flow_material_data.FECHA,
             flow_material_id
         )
     )
@@ -119,3 +122,19 @@ def get_encargado_almacen(almacen_id: int) -> dict:
     if not encargado:
         raise ValueError(f"Encargado del almacén no encontrado para ALMACEN_ID: {almacen_id}.")
     return encargado
+
+from app.schemas.flow_material_schema import FlowMaterialOut
+from datetime import date
+
+class FlowMaterialRepository:
+    @staticmethod
+    def get_flows_by_item_and_date_range(item_id: int, start_date: date, end_date: date):
+        connection = get_db_connection()
+        with connection.cursor() as cursor:
+            sql = """
+                SELECT * FROM FLUJO_MATERIAL
+                WHERE MATERIAL_ID = %s AND FECHA BETWEEN %s AND %s
+            """
+            cursor.execute(sql, (item_id, start_date, end_date))
+            rows = cursor.fetchall()
+            return [FlowMaterialOut(**row) for row in rows] 

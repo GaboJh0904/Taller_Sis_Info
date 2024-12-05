@@ -54,7 +54,7 @@ class ToolAllocationBL:
     def get_tool_allocations_with_details_by_project(project_id: int, fase: str) -> list[ToolAllocationWithDetailsOut]:
         # Obtener las asignaciones de herramientas por proyecto
         allocations = get_tool_allocations_by_project(project_id, fase)
-        print(allocations)
+        # print(allocations)
         results = []
 
         # Iterar sobre cada asignación y buscar el flujo de herramientas y la herramienta asociado
