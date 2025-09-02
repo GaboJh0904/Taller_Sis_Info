@@ -1,14 +1,15 @@
 # app/schemas/project_schema.py
+
 from pydantic import BaseModel
 from datetime import date
-from decimal import Decimal
+from typing import List
 
-class ProjectBase(BaseModel):
+class ProjectCreate(BaseModel):
     NOMBRE: str
     DESCRIPCION: str
     CRONOGRAMA: str
-    PRESUPUESTO_ASIGNADO: Decimal
-    METAS_FINANCIERAS: Decimal
+    PRESUPUESTO_ASIGNADO: float
+    METAS_FINANCIERAS: float #NO STR LPM
     ESTADO: str
     PRIORIDAD: str
     FECHA_INICIO: date
@@ -17,8 +18,22 @@ class ProjectBase(BaseModel):
     GERENTE_INVENTARIO_ID: int
     ENCARGADO_FINANZAS_ID: int
 
-class ProjectCreate(ProjectBase):
-    pass  # La creación usa los mismos campos que ProjectBase
+class ProjectOut(ProjectCreate):
+    ID: int
 
-class ProjectOut(ProjectBase):
-    ID: int  # Al devolver un proyecto, también incluimos el ID
+class ProjectCompletionOut(BaseModel):
+    project_id: int
+    project_name: str
+    completion_percentage: float  # value between 0 and 100
+    start_date: date
+    end_date: date
+    current_date: date
+
+class ResourceUtilizationEntry(BaseModel):
+    resource_type: str
+    utilization_rate: float
+
+class ResourceUtilizationOut(BaseModel):
+    project_id: int
+    project_name: str
+    resource_utilization: List[ResourceUtilizationEntry]

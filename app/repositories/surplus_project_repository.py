@@ -59,10 +59,10 @@ def delete_surplus(surplus_id: int) -> None:
 def get_surplus_project_by_material_allocation(material_allocation_id: int) -> list[SurplusOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    print(f"Fetching allocations for project ID: {material_allocation_id}")
+    # print(f"Fetching allocations for project ID: {material_allocation_id}")
     cursor.execute("SELECT * FROM SOBRANTE_PROYECTO WHERE ASIGNACION_MATERIAL_ID = %s", (material_allocation_id,))
     allocations = cursor.fetchall()
-    print(allocations)
+    # print(allocations)
     conn.close()
 
     return [SurplusOut(**allocation) for allocation in allocations]
