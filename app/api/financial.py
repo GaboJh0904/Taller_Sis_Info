@@ -1,5 +1,6 @@
 # app/api/financial.py
 
+
 from fastapi import APIRouter, Depends, HTTPException
 from app.business_logic.financial_bl import FinancialBL
 from app.schemas.financial_schema import (
@@ -9,6 +10,7 @@ from app.schemas.financial_schema import (
 )
 from app.api.auth import get_current_user
 from app.schemas.user_schema import UserOut
+
 
 router = APIRouter()
 
@@ -22,9 +24,11 @@ def get_budget_variance(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
 @router.get("/projects/{project_id}/spending-trend", response_model=SpendingTrendOut)
 def get_spending_trend(
     project_id: int,
+
     fase: str = None,
     current_user: UserOut = Depends(get_current_user)
 ):
@@ -53,3 +57,4 @@ def tool_spending(
         return FinancialBL.get_tool_spending(project_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+

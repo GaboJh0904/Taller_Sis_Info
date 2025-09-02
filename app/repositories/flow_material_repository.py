@@ -123,7 +123,9 @@ def get_encargado_almacen(almacen_id: int) -> dict:
         raise ValueError(f"Encargado del almacén no encontrado para ALMACEN_ID: {almacen_id}.")
     return encargado
 
+
 from app.schemas.flow_material_schema import FlowMaterialOut
+
 from datetime import date
 
 class FlowMaterialRepository:
@@ -137,4 +139,5 @@ class FlowMaterialRepository:
             """
             cursor.execute(sql, (item_id, start_date, end_date))
             rows = cursor.fetchall()
+
             return [FlowMaterialOut(**row) for row in rows] 

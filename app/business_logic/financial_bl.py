@@ -1,3 +1,4 @@
+
 # app/business_logic/financial_bl.py
 
 from app.repositories.project_repository import get_project_by_id
@@ -14,12 +15,14 @@ class FinancialBL:
     @staticmethod
     def get_budget_variance(project_id: int):
         project = get_project_by_id(project_id)
+
         if not project:
             raise ValueError(f"Project with ID {project_id} not found.")
 
         assigned_budget = project.PRESUPUESTO_ASIGNADO
 
         # Calculate actual spending
+
         material_allocations = get_material_allocations_by_project(project_id)
         tool_allocations = get_tool_allocations_by_project(project_id)
 
@@ -27,13 +30,16 @@ class FinancialBL:
         for allocation in material_allocations:
             flow_material = get_flow_material_by_id(allocation.FLUJO_MATERIAL_ID)
             material = get_material_by_id(flow_material.MATERIAL_ID)
+
             if material:
                 total_material_spending += material.PRECIO_UNITARIO * allocation.CANTIDAD
 
         total_tool_spending = 0
         for allocation in tool_allocations:
+
             flow_tool = get_flow_tool_by_id(allocation.FLUJO_HERRAMIENTA_ID)
             tool = get_tool_by_id(flow_tool.HERRAMIENTA_ID)
+
             if tool:
                 total_tool_spending += tool.PRECIO_UNITARIO * allocation.CANTIDAD
 
@@ -44,6 +50,7 @@ class FinancialBL:
         return {
             "project_id": project.ID,
             "project_name": project.NOMBRE,
+
             "assigned_budget": float(assigned_budget),
             "actual_spending": float(actual_spending),
             "budget_variance": float(budget_variance)
@@ -168,3 +175,4 @@ class FinancialBL:
             "expenses": tool_spending_list,
             "total_expense": total
         }
+
