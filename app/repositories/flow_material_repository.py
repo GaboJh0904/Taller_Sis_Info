@@ -51,13 +51,14 @@ def get_all_flow_materials() -> list[FlowMaterialOut]:
 def create_flow_material(flow_material_data: FlowMaterialCreate) -> FlowMaterialOut:
     conn = get_db_connection()
     cursor = conn.cursor()
+
     cursor.execute(
         """INSERT INTO FLUJO_MATERIAL 
            (MATERIAL_ID, ALMACEN_ID, CANTIDAD, MOVIMIENTO, FECHA)
            VALUES (%s, %s, %s, %s, %s)""",
         (
             flow_material_data.MATERIAL_ID, flow_material_data.ALMACEN_ID, flow_material_data.CANTIDAD,
-            flow_material_data.MOVIMIENTO, flow_material_data.FECHA
+            str(flow_material_data.MOVIMIENTO.value), flow_material_data.FECHA
         )
     )
     conn.commit()
@@ -70,13 +71,15 @@ def create_flow_material(flow_material_data: FlowMaterialCreate) -> FlowMaterial
 def update_flow_material(flow_material_id: int, flow_material_data: FlowMaterialCreate) -> FlowMaterialOut:
     conn = get_db_connection()
     cursor = conn.cursor()
+
+    
     cursor.execute(
         """UPDATE FLUJO_MATERIAL SET 
            MATERIAL_ID = %s, ALMACEN_ID = %s, CANTIDAD = %s, MOVIMIENTO = %s, FECHA = %s 
            WHERE ID = %s""",
         (
             flow_material_data.MATERIAL_ID, flow_material_data.ALMACEN_ID, flow_material_data.CANTIDAD,
-            flow_material_data.MOVIMIENTO, flow_material_data.FECHA,
+            str(flow_material_data.MOVIMIENTO.value), flow_material_data.FECHA,
             flow_material_id
         )
     )
@@ -121,6 +124,8 @@ def get_encargado_almacen(almacen_id: int) -> dict:
     return encargado
 
 
+from app.schemas.flow_material_schema import FlowMaterialOut
+
 from datetime import date
 
 class FlowMaterialRepository:
@@ -134,5 +139,5 @@ class FlowMaterialRepository:
             """
             cursor.execute(sql, (item_id, start_date, end_date))
             rows = cursor.fetchall()
-            return [FlowMaterialOut(**row) for row in rows] 
 
+            return [FlowMaterialOut(**row) for row in rows] 

@@ -26,16 +26,18 @@ class InventoryTurnoverOut(BaseModel):
 class ReplenishmentTimeOut(BaseModel):
     item_id: int
     item_name: str
-    average_replenishment_time: float 
+    average_replenishment_time: float  # in days
+
     number_of_replenishments: int
 
 class StockoutRateOut(BaseModel):
     item_id: int
     item_name: str
-    stockout_rate: float 
+
+    stockout_rate: float  # percentage
+
     stockout_days: int
     total_days: int
     start_date: date
     end_date: date
-
 
