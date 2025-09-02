@@ -57,7 +57,7 @@ def create_flow_tool(flow_tool_data: FlowToolCreate) -> FlowToolOut:
            (CANTIDAD, MOVIMIENTO, FECHA, ALMACEN_ID, HERRAMIENTA_ID)
            VALUES (%s, %s, %s, %s, %s)""",
         (
-            flow_tool_data.CANTIDAD, flow_tool_data.MOVIMIENTO, flow_tool_data.FECHA,
+            flow_tool_data.CANTIDAD, str(flow_tool_data.MOVIMIENTO.value), flow_tool_data.FECHA,
             flow_tool_data.ALMACEN_ID, flow_tool_data.HERRAMIENTA_ID
         )
     )
@@ -76,7 +76,7 @@ def update_flow_tool(flow_tool_id: int, flow_tool_data: FlowToolCreate) -> FlowT
            CANTIDAD = %s, MOVIMIENTO = %s, FECHA = %s, ALMACEN_ID = %s, HERRAMIENTA_ID = %s 
            WHERE ID = %s""",
         (
-            flow_tool_data.CANTIDAD, flow_tool_data.MOVIMIENTO, flow_tool_data.FECHA,
+            flow_tool_data.CANTIDAD, str(flow_tool_data.MOVIMIENTO.value), flow_tool_data.FECHA,
             flow_tool_data.ALMACEN_ID, flow_tool_data.HERRAMIENTA_ID,
             flow_tool_id
         )

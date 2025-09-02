@@ -55,7 +55,7 @@ class MaterialAllocationBL:
     def get_material_allocations_with_details_by_project(project_id: int, fase: str) -> list[MaterialAllocationWithDetailsOut]:
         # Obtener las asignaciones de material por proyecto
         allocations = get_material_allocations_by_project(project_id, fase)
-        print(allocations)
+        
         results = []
 
         # Iterar sobre cada asignación y buscar el flujo de material y el material asociado

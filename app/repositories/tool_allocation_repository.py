@@ -56,13 +56,17 @@ def delete_tool_allocation(tool_allocation_id: int) -> None:
     conn.commit()
     conn.close()
 
-def get_tool_allocations_by_project(project_id: int, fase: str) -> list[ToolAllocationOut]:
+def get_tool_allocations_by_project(project_id: int, fase: str = None) -> list[ToolAllocationOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    print(f"Fetching allocations for project ID: {project_id}")
-    cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA WHERE PROYECTO_ID = %s AND FASE = %s", (project_id, fase))
+    # print(f"Fetching allocations for project ID: {project_id}")
+
+    if not fase:
+        cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA WHERE PROYECTO_ID = %s", (project_id, ))
+    else:
+        cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA WHERE PROYECTO_ID = %s AND FASE = %s", (project_id, fase))
     allocations = cursor.fetchall()
-    print(allocations)
+    # print(allocations)
     conn.close()
 
     return [ToolAllocationOut(**allocation) for allocation in allocations]

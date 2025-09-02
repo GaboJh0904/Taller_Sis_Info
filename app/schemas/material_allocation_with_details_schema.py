@@ -12,4 +12,4 @@ class MaterialAllocationWithDetailsOut(BaseModel):
     fecha_flujo: datetime  # Fecha de FLUJO_MATERIAL
 
     class Config:
-        orm_mode = True
+        from_atributes = True
