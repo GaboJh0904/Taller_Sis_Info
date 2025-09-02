@@ -119,3 +119,20 @@ def get_encargado_almacen(almacen_id: int) -> dict:
     if not encargado:
         raise ValueError(f"Encargado del almacén no encontrado para ALMACEN_ID: {almacen_id}.")
     return encargado
+
+
+from datetime import date
+
+class FlowMaterialRepository:
+    @staticmethod
+    def get_flows_by_item_and_date_range(item_id: int, start_date: date, end_date: date):
+        connection = get_db_connection()
+        with connection.cursor() as cursor:
+            sql = """
+                SELECT * FROM FLUJO_MATERIAL
+                WHERE MATERIAL_ID = %s AND FECHA BETWEEN %s AND %s
+            """
+            cursor.execute(sql, (item_id, start_date, end_date))
+            rows = cursor.fetchall()
+            return [FlowMaterialOut(**row) for row in rows] 
+
