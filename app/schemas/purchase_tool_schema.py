@@ -1,11 +1,11 @@
 # app/schemas/purchase_tool_schema.py
-from datetime import date
+from datetime import datetime
 
 from pydantic import BaseModel
 
 class PurchaseToolBase(BaseModel):
     COSTO_TOTAL: float
-    FECHA: date
+    FECHA: datetime
     PROVEEDOR_ID: int
     DETALLE: str
 
