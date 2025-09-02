@@ -7,7 +7,6 @@ Content-Type: application/json
   "DESCRIPCION": "Saco de cemento de alta calidad",
   "CANTIDAD": 50,
   "PRECIO_UNITARIO": 300,
-  "PROVEEDOR_ID": 1,
   "CANTIDAD_MINIMA": 5
 }
 
@@ -16,11 +15,11 @@ GET http://localhost:8000/materials/
 #Authorization: Bearer {{access_token}}
 
 ### Obtener un material por ID
-GET http://localhost:8000/materials/1
+GET http://localhost:8000/materials/2
 #Authorization: Bearer {{access_token}}
 
 ### Actualizar un material existente por ID
-PUT http://localhost:8000/materials/1
+PUT http://localhost:8000/materials/2
 Content-Type: application/json
 #Authorization: Bearer {{access_token}}
 
@@ -35,4 +34,8 @@ Content-Type: application/json
 
 ### Eliminar un material por ID
 DELETE http://localhost:8000/materials/2
+#Authorization: Bearer {{access_token}}
+
+### obtener materiales con bajo stock
+GET http://localhost:8000/materials/notifications/low-stock
 #Authorization: Bearer {{access_token}}

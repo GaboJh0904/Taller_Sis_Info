@@ -25,9 +25,9 @@ def create_tool_allocation(tool_allocation_data: ToolAllocationCreate) -> ToolAl
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        """INSERT INTO ASIGNACION_HERRAMIENTA (CANTIDAD, FLUJO_HERRAMIENTA_ID, PROYECTO_ID) 
-           VALUES (%s, %s, %s)""",
-        (tool_allocation_data.CANTIDAD, tool_allocation_data.FLUJO_HERRAMIENTA_ID, tool_allocation_data.PROYECTO_ID)
+        """INSERT INTO ASIGNACION_HERRAMIENTA (CANTIDAD, FLUJO_HERRAMIENTA_ID, PROYECTO_ID, FASE) 
+           VALUES (%s, %s, %s, %s)""",
+        (tool_allocation_data.CANTIDAD, tool_allocation_data.FLUJO_HERRAMIENTA_ID, tool_allocation_data.PROYECTO_ID, tool_allocation_data.FASE)
     )
     conn.commit()
     tool_allocation_id = cursor.lastrowid
@@ -40,9 +40,9 @@ def update_tool_allocation(tool_allocation_id: int, tool_allocation_data: ToolAl
     cursor = conn.cursor()
     cursor.execute(
         """UPDATE ASIGNACION_HERRAMIENTA SET 
-           CANTIDAD = %s, FLUJO_HERRAMIENTA_ID = %s, PROYECTO_ID = %s 
+           CANTIDAD = %s, FLUJO_HERRAMIENTA_ID = %s, PROYECTO_ID = %s, FASE = %s
            WHERE ID = %s""",
-        (tool_allocation_data.CANTIDAD, tool_allocation_data.FLUJO_HERRAMIENTA_ID, tool_allocation_data.PROYECTO_ID, tool_allocation_id)
+        (tool_allocation_data.CANTIDAD, tool_allocation_data.FLUJO_HERRAMIENTA_ID, tool_allocation_data.PROYECTO_ID, tool_allocation_data.FASE, tool_allocation_id)
     )
     conn.commit()
     conn.close()
@@ -56,11 +56,11 @@ def delete_tool_allocation(tool_allocation_id: int) -> None:
     conn.commit()
     conn.close()
 
-def get_tool_allocations_by_project(project_id: int) -> list[ToolAllocationOut]:
+def get_tool_allocations_by_project(project_id: int, fase: str) -> list[ToolAllocationOut]:
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     print(f"Fetching allocations for project ID: {project_id}")
-    cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA WHERE PROYECTO_ID = %s", (project_id,))
+    cursor.execute("SELECT * FROM ASIGNACION_HERRAMIENTA WHERE PROYECTO_ID = %s AND FASE = %s", (project_id, fase))
     allocations = cursor.fetchall()
     print(allocations)
     conn.close()

@@ -38,11 +38,11 @@ def create_tool(tool_data: ToolCreate) -> ToolOut:
     cursor = conn.cursor()
     cursor.execute(
         """INSERT INTO HERRAMIENTA 
-           (NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, PROVEEDOR_ID, CANTIDAD_MINIMA)
-           VALUES (%s, %s, %s, %s, %s, %s)""",
+           (NOMBRE, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, CANTIDAD_MINIMA)
+           VALUES (%s, %s, %s, %s, %s)""",
         (
             tool_data.NOMBRE, tool_data.DESCRIPCION, tool_data.CANTIDAD,
-            tool_data.PRECIO_UNITARIO, tool_data.PROVEEDOR_ID, tool_data.CANTIDAD_MINIMA
+            tool_data.PRECIO_UNITARIO, tool_data.CANTIDAD_MINIMA
         )
     )
     conn.commit()
@@ -58,11 +58,11 @@ def update_tool(tool_id: int, tool_data: ToolCreate) -> ToolOut:
     cursor.execute(
         """UPDATE HERRAMIENTA SET 
            NOMBRE = %s, DESCRIPCION = %s, CANTIDAD = %s, PRECIO_UNITARIO = %s, 
-           PROVEEDOR_ID = %s, CANTIDAD_MINIMA = %s 
+           CANTIDAD_MINIMA = %s 
            WHERE ID = %s""",
         (
             tool_data.NOMBRE, tool_data.DESCRIPCION, tool_data.CANTIDAD,
-            tool_data.PRECIO_UNITARIO, tool_data.PROVEEDOR_ID, tool_data.CANTIDAD_MINIMA,
+            tool_data.PRECIO_UNITARIO, tool_data.CANTIDAD_MINIMA,
             tool_id
         )
     )
@@ -78,3 +78,13 @@ def delete_tool(tool_id: int) -> None:
     cursor.execute("DELETE FROM HERRAMIENTA WHERE ID = %s", (tool_id,))
     conn.commit()
     conn.close()
+
+
+def get_low_stock_tools() -> list[ToolOut]:
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM HERRAMIENTA WHERE CANTIDAD <= CANTIDAD_MINIMA")
+    tools = cursor.fetchall()
+    conn.close()
+
+    return [ToolOut(**tool) for tool in tools]

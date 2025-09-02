@@ -17,7 +17,7 @@ def get_flow_tool_by_id(flow_tool_id: int) -> FlowToolOut | None:
         ALMACEN A ON FH.ALMACEN_ID = A.ID
     JOIN 
         HERRAMIENTA H ON FH.HERRAMIENTA_ID = H.ID
-    WHERE ID = %s;
+    WHERE FH.ID = %s;
     ''', (flow_tool_id,))
     flow_tool = cursor.fetchone()
     conn.close()

@@ -48,9 +48,9 @@ def delete_existing_material_allocation(material_allocation_id: int):
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-@router.get("/project/{project_id}/materials", response_model=list[MaterialAllocationWithDetailsOut])
-def get_material_allocations_with_details_by_project(project_id: int):
+@router.get("/project/{project_id}/materials/{fase}", response_model=list[MaterialAllocationWithDetailsOut])
+def get_material_allocations_with_details_by_project(project_id: int, fase: str):
     try:
-        return MaterialAllocationBL.get_material_allocations_with_details_by_project(project_id)
+        return MaterialAllocationBL.get_material_allocations_with_details_by_project(project_id, fase)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

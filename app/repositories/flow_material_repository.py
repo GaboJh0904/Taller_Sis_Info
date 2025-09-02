@@ -17,7 +17,7 @@ def get_flow_material_by_id(flow_material_id: int) -> FlowMaterialOut | None:
         ALMACEN A ON FM.ALMACEN_ID = A.ID
     JOIN 
         MATERIAL M ON FM.MATERIAL_ID = M.ID 
-    WHERE ID = %s;
+    WHERE FM.ID = %s;
     ''', (flow_material_id,))
     flow_material = cursor.fetchone()
     conn.close()
@@ -93,7 +93,34 @@ def delete_flow_material(flow_material_id: int) -> None:
     conn.commit()
     conn.close()
 
-from app.schemas.flow_material_schema import FlowMaterialOut
+def get_encargado_almacen(almacen_id: int) -> dict:
+    """
+    Obtiene el correo y nombre del encargado del almacén asociado a un ALMACEN_ID.
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('''
+    SELECT
+        U.USER_NAME AS NOMBRE,
+        U.EMAIL AS CORREO
+    FROM
+        USUARIO U
+    JOIN
+        EMPLEADO E ON U.EMPLEADO_ID = E.ID
+    JOIN
+        ENCARGADO_ALMACEN EA ON EA.EMPLEADO_ID = E.ID
+    JOIN
+        ALMACEN A ON EA.ID = A.ENCARGADO_ALMACEN_ID
+    WHERE
+        A.ID = %s;
+    ''', (almacen_id,))
+    encargado = cursor.fetchone()
+    conn.close()
+    if not encargado:
+        raise ValueError(f"Encargado del almacén no encontrado para ALMACEN_ID: {almacen_id}.")
+    return encargado
+
+
 from datetime import date
 
 class FlowMaterialRepository:
@@ -108,3 +135,4 @@ class FlowMaterialRepository:
             cursor.execute(sql, (item_id, start_date, end_date))
             rows = cursor.fetchall()
             return [FlowMaterialOut(**row) for row in rows] 
+

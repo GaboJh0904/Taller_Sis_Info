@@ -1,0 +1,38 @@
+### Create a new purchase detail
+POST http://localhost:8000/purchase-material-details/
+Content-Type: application/json
+
+{
+  "COSTO": 250.75,
+  "CANTIDAD": 10,
+  "MATERIAL_ID": 1,
+  "COMPRA_MATERIAL_ID": 2
+}
+
+### Get all purchase details
+GET http://localhost:8000/purchase-material-details/
+#Authorization: Bearer {{access_token}}
+
+### Get a purchase detail by ID
+GET http://localhost:8000/purchase-material-details/4
+#Authorization: Bearer {{access_token}}
+
+### Update an existing purchase detail by ID
+PUT http://localhost:8000/purchase-material-details/1
+Content-Type: application/json
+#Authorization: Bearer {{access_token}}
+
+{
+  "COSTO": 275.50,
+  "CANTIDAD": 12,
+  "MATERIAL_ID": 1,
+  "COMPRA_MATERIAL_ID": 2
+}
+
+### Delete a purchase detail by ID
+DELETE http://localhost:8000/purchase-material-details/1
+#Authorization: Bearer {{access_token}}
+
+### Get all purchase details by purchase ID
+GET http://localhost:8000/purchase-material-details/by_purchase/2
+#Authorization: Bearer {{access_token}}

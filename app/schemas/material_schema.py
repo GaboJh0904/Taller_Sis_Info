@@ -6,7 +6,6 @@ class MaterialBase(BaseModel):
     DESCRIPCION: str
     CANTIDAD: int
     PRECIO_UNITARIO: int
-    PROVEEDOR_ID: int
     CANTIDAD_MINIMA: int
 
 class MaterialCreate(MaterialBase):
