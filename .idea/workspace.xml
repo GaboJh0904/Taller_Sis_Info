@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0acd9340-efd7-4eca-ba4a-d9811f781211" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Taller_Sis_Info.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/betterCommentsSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/db/planificacion_inventario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/db/planificacion_inventario.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SQL File" />
+        <option value="Python Script" />
+        <option value="HTTP Request" />
+        <option value="Dockerfile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/requirements.txt" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2nJN7uzDBmV4onSXYUjqCKrZuIt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;FastAPI.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;FastAPI.main.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Actualizar un flujo de material existente por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Crear un nuevo flujo de material (entrada).executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Crear un nuevo flujo de material (salida).executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Crear un nuevo flujo de material.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Eliminar un flujo de material por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Obtener el listado de todos los flujos de materiales.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_material_test | Obtener un flujo de material por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Actualizar un flujo de herramienta existente por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Crear un nuevo flujo de herramienta (entrada).executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Crear un nuevo flujo de herramienta (salida).executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Crear un nuevo flujo de herramienta.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Eliminar un flujo de herramienta por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Obtener el listado de todos los flujos de herramientas.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.flow_tool_test | Obtener un flujo de herramienta por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.material_test | Actualizar un material existente por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.material_test | Crear un nuevo material.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.material_test | Eliminar un material por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.material_test | Obtener el listado de todos los materiales.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.material_test | Obtener un material por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.material_test | obtener materiales con bajo stock.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.project_test | Actualizar un proyecto existente por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.project_test | Crear un nuevo proyecto.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.project_test | Eliminar un proyecto por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.project_test | Obtener el listado de todos los proyectos.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.project_test | Obtener un proyecto por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.providers | Create a new provider.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.providers | Delete a provider by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.providers | Get a provider by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.providers | Get all providers.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.providers | Update an existing provider by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material | Actualizar una compra de material existente por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material | Crear una nueva compra de material (1).executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material | Crear una nueva compra de material.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material | Eliminar una compra de material por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material | Obtener el listado de todas las compras de materiales.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material | Obtener una compra de material por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material_details | Create a new purchase detail.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material_details | Delete a purchase detail by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material_details | Get a purchase detail by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material_details | Get all purchase details by purchase ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material_details | Get all purchase details.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_material_details | Update an existing purchase detail by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Create a new purchase tool detail.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Delete a purchase tool detail by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Get a purchase tool detail by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Get all purchase details by purchase ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Get all purchase tool details by purchase ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Get all purchase tool details.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tool_details | Update an existing purchase tool detail by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tools | Create a new purchase tool.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tools | Delete a purchase tool by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tools | Get a purchase tool by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tools | Get all purchase tools.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.purchase_tools | Update an existing purchase tool by ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.test_main | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.tool_test | Actualizar una herramienta existente por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.tool_test | Crear una nueva herramienta.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.tool_test | Eliminar una herramienta por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.tool_test | Obtener el listado de todas las herramientas.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.tool_test | Obtener una herramienta por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.tool_test | obtener herramientas con bajo stock.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.user_test | Actualizar un usuario por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.user_test | Crear un nuevo usuario.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.user_test | Eliminar un usuario por ID.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.user_test | Obtener el listado de todos los usuarios.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.user_test | Obtener el token de acceso.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.user_test | Obtener un usuario por ID.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/maxpa/Desktop/Max_Pasten/PastenPlast/Inventario-PastenPlast/backend_pastenplast&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maxpa\Desktop\Max Pasten\Ingenieria de sistemas\8vo Semestre\Taller de sistemas de informacion\Taller_Sis_Info\app" />
+    </key>
+  </component>
+  <component name="RunManager" selected="FastAPI.main">
+    <configuration name="material_test | obtener materiales con bajo stock" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/http/material_test.http" executionIdentifier="obtener materiales con bajo stock" index="6" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="purchase_tool_details | Create a new purchase tool detail" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/http/purchase_tool_details.http" executionIdentifier="Create a new purchase tool detail" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="purchase_tools | Create a new purchase tool" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/http/purchase_tools.http" executionIdentifier="Create a new purchase tool" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="tool_test | Obtener el listado de todas las herramientas" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/http/tool_test.http" executionIdentifier="Obtener el listado de todas las herramientas" index="2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="tool_test | obtener herramientas con bajo stock" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/http/tool_test.http" executionIdentifier="obtener herramientas con bajo stock" index="6" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="Python.FastAPI">
+      <option name="file" value="C:\Users\maxpa\Desktop\Max Pasten\Ingenieria de sistemas\8vo Semestre\Taller de sistemas de informacion\Taller_Sis_Info\app\main.py" />
+      <module name="Taller_Sis_Info" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/AppData/Local/Programs/Python/Python312/python.exe" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="FastAPI.main" />
+      <item itemvalue="HTTP Request.material_test | obtener materiales con bajo stock" />
+      <item itemvalue="HTTP Request.purchase_tool_details | Create a new purchase tool detail" />
+      <item itemvalue="HTTP Request.purchase_tools | Create a new purchase tool" />
+      <item itemvalue="HTTP Request.tool_test | Obtener el listado de todas las herramientas" />
+      <item itemvalue="HTTP Request.tool_test | obtener herramientas con bajo stock" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.material_test | obtener materiales con bajo stock" />
+        <item itemvalue="HTTP Request.tool_test | obtener herramientas con bajo stock" />
+        <item itemvalue="HTTP Request.tool_test | Obtener el listado de todas las herramientas" />
+        <item itemvalue="HTTP Request.purchase_tool_details | Create a new purchase tool detail" />
+        <item itemvalue="HTTP Request.purchase_tools | Create a new purchase tool" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.27397.106" />
+        <option value="bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0acd9340-efd7-4eca-ba4a-d9811f781211" name="Changes" comment="" />
+      <created>1728687055169</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728687055169</updated>
+      <workItem from="1728687056302" duration="540000" />
+      <workItem from="1728687619792" duration="10075000" />
+      <workItem from="1728846209035" duration="7247000" />
+      <workItem from="1728865260939" duration="3716000" />
+      <workItem from="1728917510728" duration="64000" />
+      <workItem from="1728948778483" duration="5339000" />
+      <workItem from="1729012429071" duration="589000" />
+      <workItem from="1729032115517" duration="7071000" />
+      <workItem from="1729089816539" duration="498000" />
+      <workItem from="1729128713369" duration="1382000" />
+      <workItem from="1729203269598" duration="262000" />
+      <workItem from="1729204853354" duration="2030000" />
+      <workItem from="1729275689935" duration="343000" />
+      <workItem from="1729635867229" duration="217000" />
+      <workItem from="1729731676915" duration="7117000" />
+      <workItem from="1729771779451" duration="2184000" />
+      <workItem from="1729775019142" duration="5170000" />
+      <workItem from="1729804247404" duration="6558000" />
+      <workItem from="1729890809105" duration="823000" />
+      <workItem from="1729906858592" duration="1004000" />
+      <workItem from="1729962176871" duration="2596000" />
+      <workItem from="1730127761042" duration="83000" />
+      <workItem from="1730155235483" duration="7738000" />
+      <workItem from="1730222643561" duration="9532000" />
+      <workItem from="1730314805996" duration="1198000" />
+      <workItem from="1731013127285" duration="807000" />
+      <workItem from="1731014379173" duration="6161000" />
+      <workItem from="1731202475975" duration="1489000" />
+      <workItem from="1731284643782" duration="597000" />
+      <workItem from="1731369535334" duration="106000" />
+      <workItem from="1731369999099" duration="4625000" />
+      <workItem from="1731462080587" duration="1587000" />
+      <workItem from="1731509015764" duration="2933000" />
+      <workItem from="1731544467704" duration="1373000" />
+      <workItem from="1731582426586" duration="8141000" />
+      <workItem from="1731717617273" duration="4266000" />
+      <workItem from="1731765931008" duration="312000" />
+      <workItem from="1731766259384" duration="660000" />
+      <workItem from="1731766985341" duration="291000" />
+      <workItem from="1731767382725" duration="250000" />
+      <workItem from="1731767866535" duration="318000" />
+      <workItem from="1731813308583" duration="73000" />
+      <workItem from="1732019479582" duration="5502000" />
+      <workItem from="1732056737442" duration="8424000" />
+      <workItem from="1732110310154" duration="1688000" />
+      <workItem from="1732154054174" duration="2472000" />
+      <workItem from="1732189087127" duration="12299000" />
+      <workItem from="1732286297675" duration="2434000" />
+      <workItem from="1732379815563" duration="285000" />
+      <workItem from="1732380444759" duration="604000" />
+      <workItem from="1732497381243" duration="1388000" />
+      <workItem from="1732623496371" duration="9385000" />
+      <workItem from="1732728281411" duration="113000" />
+      <workItem from="1732729045625" duration="321000" />
+      <workItem from="1732821455308" duration="1788000" />
+      <workItem from="1733269370331" duration="2580000" />
+      <workItem from="1733342982155" duration="459000" />
+      <workItem from="1733413828993" duration="3629000" />
+      <workItem from="1733425232894" duration="1177000" />
+      <workItem from="1733434977908" duration="2732000" />
+      <workItem from="1734013215950" duration="29000" />
+      <workItem from="1734665829478" duration="1941000" />
+      <workItem from="1734702334153" duration="1090000" />
+      <workItem from="1734827656292" duration="3955000" />
+      <workItem from="1734885126872" duration="829000" />
+      <workItem from="1734886498676" duration="2987000" />
+      <workItem from="1735773439363" duration="528000" />
+      <workItem from="1743794617793" duration="693000" />
+      <workItem from="1756825122626" duration="4589000" />
+      <workItem from="1756866317249" duration="566000" />
+      <workItem from="1759259751367" duration="1244000" />
+      <workItem from="1759287189100" duration="3508000" />
+      <workItem from="1759343543604" duration="1648000" />
+      <workItem from="1759359888056" duration="2149000" />
+      <workItem from="1759443170233" duration="2303000" />
+      <workItem from="1760195904243" duration="556000" />
+      <workItem from="1761744997317" duration="2123000" />
+      <workItem from="1761760925984" duration="7031000" />
+      <workItem from="1761864236729" duration="1874000" />
+      <workItem from="1762045523923" duration="126000" />
+      <workItem from="1762539073755" duration="7290000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Taller_Sis_Info$main.coverage" NAME="main Coverage Results" MODIFIED="1761864265521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Taller_Sis_Info$Unnamed.coverage" NAME="main Coverage Results" MODIFIED="1728700578493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>
